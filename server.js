@@ -25,12 +25,13 @@ app.use(morgan('dev'));
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
 
-app.set("view engine", "ejs");
+app.set("view engine", "pug");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/styles", sass({
-  src: __dirname + "/styles",
+  src: __dirname + "/styles/",
   dest: __dirname + "/public/styles",
   debug: true,
+  error: (err) => {console.log(err); debugger;},
   outputStyle: 'expanded'
 }));
 app.use(express.static("public"));
