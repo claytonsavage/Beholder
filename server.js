@@ -16,6 +16,9 @@ const knexLogger  = require('knex-logger');
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
+const mainRoutes  = require("./routes/routes");
+// const mainRoutes = express.Router();
+
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -24,6 +27,8 @@ app.use(morgan('dev'));
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
+
+app.use(mainRoutes);
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -42,6 +47,48 @@ app.use("/api/users", usersRoutes(knex));
 app.get("/", (req, res) => {
   res.render("index");
 });
+//app.use('/register', mainRoutes;
+
+
+// app.route('/register')
+//   .get((req, res) => { res.send ('it works'); })
+//   .post((req, res) => {res.send ('it works'); });
+
+// mainRoutes.route('/login')
+//   .get((req, res) => {res.send ('it works'); })
+//   .post((req, res) => {res.send ('it works'); });
+
+
+// mainRoutes.route('/user/:userid')
+//   .get((req, res) => {res.send ('it works'); });
+
+// mainRoutes.route('/user/update')
+//   .post((req, res) => {res.send ('it works'); });
+
+// mainRoutes.route('/todo/new')
+//   .get((req, res) => {res.send ('it works'); });
+
+// mainRoutes.route('/todo/index')
+//   .get((req, res) => {res.send ('it works'); });
+
+// mainRoutes.route('/todo/create')
+//   .post((req, res) => {res.send ('it works'); });
+
+// mainRoutes.route('/todo/:id')
+//   .get((req, res) => {res.send ('it works'); });
+
+// mainRoutes.route('/todo/:id/update')
+//   .post((req, res) => {res.send ('it works'); });
+
+// mainRoutes.route('/logout')
+//   .post((req, res) => {res.send ('it works'); });
+
+
+
+
+
+
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
