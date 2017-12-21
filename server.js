@@ -18,7 +18,12 @@ const knexLogger  = require('knex-logger');
 const usersRoutes = require("./routes/users");
 const mainRoutes  = require("./routes/routes");
 // const mainRoutes = express.Router();
+const getSecrets = require('./secrets');
+const MovieDB = require('moviedb')(getSecrets.THEMOVIEDB_TOKEN);
 
+MovieDB.searchMovie({ query: 'Alien' }, (err, res) => {
+  console.log(`Review: ${res['results'][0]['vote_average']} Overview: ${res['results'][0]['overview']}`);
+});
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -47,47 +52,6 @@ app.use("/api/users", usersRoutes(knex));
 app.get("/", (req, res) => {
   res.render("index");
 });
-//app.use('/register', mainRoutes;
-
-
-// app.route('/register')
-//   .get((req, res) => { res.send ('it works'); })
-//   .post((req, res) => {res.send ('it works'); });
-
-// mainRoutes.route('/login')
-//   .get((req, res) => {res.send ('it works'); })
-//   .post((req, res) => {res.send ('it works'); });
-
-
-// mainRoutes.route('/user/:userid')
-//   .get((req, res) => {res.send ('it works'); });
-
-// mainRoutes.route('/user/update')
-//   .post((req, res) => {res.send ('it works'); });
-
-// mainRoutes.route('/todo/new')
-//   .get((req, res) => {res.send ('it works'); });
-
-// mainRoutes.route('/todo/index')
-//   .get((req, res) => {res.send ('it works'); });
-
-// mainRoutes.route('/todo/create')
-//   .post((req, res) => {res.send ('it works'); });
-
-// mainRoutes.route('/todo/:id')
-//   .get((req, res) => {res.send ('it works'); });
-
-// mainRoutes.route('/todo/:id/update')
-//   .post((req, res) => {res.send ('it works'); });
-
-// mainRoutes.route('/logout')
-//   .post((req, res) => {res.send ('it works'); });
-
-
-
-
-
-
 
 
 app.listen(PORT, () => {
