@@ -18,8 +18,19 @@ const knexLogger  = require('knex-logger');
 const usersRoutes = require("./routes/users");
 const mainRoutes  = require("./routes/routes");
 // const mainRoutes = express.Router();
+//API's
 const getSecrets = require('./secrets');
 const MovieDB = require('moviedb')(getSecrets.THEMOVIEDB_TOKEN);
+
+var books = require('google-books-search');
+
+books.search('Professional JavaScript for Web Developers', function(error, results) {
+    if ( ! error ) {
+        console.log(results[0]['authors'], results[0]['categories'], results[0]['link'], results[0]['thumbnail']);
+    } else {
+        console.log(error);
+    }
+});
 
 MovieDB.searchMovie({ query: 'Alien' }, (err, res) => {
   console.log(`Review: ${res['results'][0]['vote_average']} Overview: ${res['results'][0]['overview']}`);
