@@ -1,5 +1,5 @@
 body {
-  background-color: $primary;
+  &, header.top-bar{background-color: $primary;}
   h1 {
     color: $blue;
   }
