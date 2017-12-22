@@ -5,6 +5,7 @@ module.exports = (function() {
     .route("/register")
     .get((req, res) => {
       res.send("it works");
+
     })
     .post((req, res) => {
       res.send("it works");
@@ -19,6 +20,14 @@ module.exports = (function() {
     .post((req, res) => {
      return  res.send("it works");
     });
+
+  mainRoutes.route("/").get((req, res) => {
+    return res.render("index",
+    {
+    // errors: req.flash('errors'),
+    // messages: req.flash('messages')
+    });
+});
 
   mainRoutes.route("/user/:userid").get((req, res) => {
     return res.send("it works");

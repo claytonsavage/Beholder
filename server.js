@@ -66,6 +66,10 @@ app.use(knexLogger(knex));
 
 app.use(mainRoutes);
 
+// flash
+app.use(flash());
+
+
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/styles", sass({
