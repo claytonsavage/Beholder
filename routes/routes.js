@@ -29,6 +29,11 @@ module.exports = (function() {
     });
 
   mainRoutes.route("/").get((req, res) => {
+    knex.select('*').from('todo_list').then(rows => {
+      console.log(rows);
+      knex.destroy()
+    })
+
     return res.render("index",
     {
     // errors: req.flash('errors'),
