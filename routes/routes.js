@@ -14,6 +14,7 @@ module.exports = (function() {
     .route("/login")
     .get((req, res) => {
      return res.send("it works");
+
     })
     .post((req, res) => {
      return  res.send("it works");
