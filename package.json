@@ -24,7 +24,8 @@
     "morgan": "^1.7.0",
     "moviedb": "^0.2.10",
     "node-sass-middleware": "^0.9.8",
-    "pg": "^6.0.2"
+    "pg": "^6.0.2",
+    "walmart": "0.0.4"
   },
   "devDependencies": {
     "nodemon": "^1.9.2",

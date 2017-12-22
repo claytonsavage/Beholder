@@ -21,6 +21,11 @@ const mainRoutes  = require("./routes/routes");
 //API's
 const getSecrets = require('./secrets');
 const MovieDB = require('moviedb')(getSecrets.THEMOVIEDB_TOKEN);
+const walmart = require('walmart')(getSecrets.walmart);
+
+walmart.search('iphone').then(function(item) {
+  console.log(item['items'][0]['msrp'], item['items'][0]['name'], item['items'][0]['salePrice']);
+});
 
 var books = require('google-books-search');
 
@@ -35,6 +40,8 @@ books.search('Professional JavaScript for Web Developers', function(error, resul
 MovieDB.searchMovie({ query: 'Alien' }, (err, res) => {
   console.log(`Review: ${res['results'][0]['vote_average']} Overview: ${res['results'][0]['overview']}`);
 });
+
+
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
