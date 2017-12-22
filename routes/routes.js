@@ -1,11 +1,11 @@
 const mainRoutes = require("express").Router();
-const bodyParser  = require("body-parser");
-// const express     = require("express");
-// const app         = express();
+const bodyParser = require('body-parser');
+const flash = require('connect-flash');
+const ENV         = process.env.ENV || "development";
+const knexConfig = require('../knexfile');
+const knex = require("knex")(knexConfig[ENV]);
 
 mainRoutes.use(bodyParser.urlencoded({ extended: true }));
-
-
 
 module.exports = (function() {
   mainRoutes
@@ -52,18 +52,16 @@ module.exports = (function() {
     return res.send("it works");
   });
 
-
-
   mainRoutes.route("/todo/create").post((req, res) => {
     if (!req.body.todo) {
       // req.flash('errors', 'empty');
       res.redirect("/");
-      return;
+    } else {
+      knex('todo_list').insert({'todo': req.body.todo, 'id': 6}).then(() => {
+        res.redirect("/");
+      });
     }
-  });
-
-
-
+  })
 
   mainRoutes.route("/todo/:id").get((req, res) => {
     return res.send("it works");
