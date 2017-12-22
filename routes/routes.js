@@ -30,7 +30,11 @@ module.exports = (function() {
 
   mainRoutes.route("/").get((req, res) => {
     knex.select('*').from('todo_list').then(rows => {
-      console.log(rows);
+      // todo pass this information in a nice way to the browser
+      // loop through the information and show it in the browser
+      rows.forEach(function(element) {
+    console.log(element.todo);
+});
       knex.destroy()
     })
 
