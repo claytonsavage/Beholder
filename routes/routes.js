@@ -1,4 +1,11 @@
 const mainRoutes = require("express").Router();
+const bodyParser  = require("body-parser");
+// const express     = require("express");
+// const app         = express();
+
+mainRoutes.use(bodyParser.urlencoded({ extended: true }));
+
+
 
 module.exports = (function() {
   mainRoutes
@@ -45,9 +52,18 @@ module.exports = (function() {
     return res.send("it works");
   });
 
+
+
   mainRoutes.route("/todo/create").post((req, res) => {
-    return res.send("it works");
+    if (!req.body.todo) {
+      // req.flash('errors', 'empty');
+      res.redirect("/");
+      return;
+    }
   });
+
+
+
 
   mainRoutes.route("/todo/:id").get((req, res) => {
     return res.send("it works");
