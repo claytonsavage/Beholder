@@ -1,13 +1,7 @@
 const mainRoutes = require("express").Router();
-const bodyParser = require('body-parser');
-const flash = require('connect-flash');
-const ENV         = process.env.ENV || "development";
-const knexConfig = require('../knexfile');
-const knex = require("knex")(knexConfig[ENV]);
 
-mainRoutes.use(bodyParser.urlencoded({ extended: true }));
 
-module.exports = (function() {
+module.exports = function(knex) {
   mainRoutes
     .route("/register")
     .get((req, res) => {
@@ -35,7 +29,6 @@ module.exports = (function() {
       rows.forEach(function(element) {
     console.log(element.todo);
 });
-      knex.destroy()
     })
 
     return res.render("index",
@@ -66,8 +59,11 @@ module.exports = (function() {
       // req.flash('errors', 'empty');
       res.redirect("/");
     } else {
-      knex('todo_list').insert({'todo': req.body.todo, 'id': }).then(() => {
+      knex('todo_list').insert({'todo': req.body.todo}).then(() => {
         res.redirect("/");
+      }).catch((err) => {
+        console.log(err);
+        res.sendStatus(500);
       });
     }
   })
@@ -85,4 +81,4 @@ module.exports = (function() {
   });
 
   return mainRoutes;
-})();
+};

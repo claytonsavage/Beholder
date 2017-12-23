@@ -18,19 +18,10 @@ module.exports = {
     },
     seeds: {
       directory: './db/seeds'
-    }
-  },
-
-  production: {
-    client: 'postgresql',
-    connection: process.env.DATABASE_URL + '?ssl=true',
-    pool: {
-      min: 2,
-      max: 10
     },
-    migrations: {
-      tableName: 'migrations'
-    }
+    pool: {
+            min: 1,
+            max: 7
+        }
   }
-
 };
