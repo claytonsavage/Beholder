@@ -22,15 +22,15 @@ module.exports = function(knex) {
           let loginDetails = false;
     if (!req.body.email || !req.body.password) {
       loginDetails = false;
-      console.log('Email/Password field cannot be empty');
-      return res.redirect('/');
+      // console.log('Email/Password field cannot be empty');
+      // return res.redirect('/');
+      return res.send("<p> Email/Password field cannot be empty<a href='/''> Please login </a></p>");
     }
     knex.select('*').from('users')
     .then((result)=> {
       for (let user of result) {
         if (req.body.email === user.email) {
           // if (bcrypt.compareSync(password, user.pass_hash)) {
-
             loginDetails = true;
             let user_email = req.body.email;
             knex('users')
@@ -43,11 +43,14 @@ module.exports = function(knex) {
             });
           //}
         }
+      if (req.body.email !== user.email || req.body.password !== user.password) {
+        return res.send("<p> Something doesn't match <a href='/'>try logging in again</a> </p>");
       }
       if (!loginDetails) {
-        console.log('Please enter a valid email/password');
-        return res.redirect('/');
+        return res.send("<p> We don't recognise your email address <a href='/'>have you registered</a> </p>");
+        // return res.redirect('/');
       }
+    }
     });
     });
 

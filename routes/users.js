@@ -7,8 +7,9 @@ module.exports = (knex) => {
 
   router.get("/", (req, res) => {
     knex
-      .select("*")
+      .select("todo")
       .from("todo_list")
+      // .where("user_id" === 2)
       .then((results) => {
         res.json(results);
     });
