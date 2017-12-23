@@ -2,15 +2,15 @@ const mainRoutes = require("express").Router();
 
 
 module.exports = function(knex) {
-  mainRoutes
-    .route("/register")
-    .get((req, res) => {
-      res.send("it works");
+  // mainRoutes
+  //   .route("/register")
+  //   .get((req, res) => {
+  //     res.send("it works");
 
-    })
-    .post((req, res) => {
-      res.send("it works");
-    });
+  //   })
+  //   .post((req, res) => {
+  //     res.send("it works");
+  //   });
 
   mainRoutes
     .route("/login")
@@ -19,8 +19,38 @@ module.exports = function(knex) {
 
     })
     .post((req, res) => {
-     return  res.send("it works");
+          let loginDetails = false;
+    if (!req.body.email || !req.body.password) {
+      loginDetails = false;
+      console.log('Email/Password field cannot be empty');
+      return res.redirect('/');
+    }
+    knex.select('*').from('users')
+    .then((result)=> {
+      for (let user of result) {
+        if (req.body.email === user.email) {
+          // if (bcrypt.compareSync(password, user.pass_hash)) {
+
+            loginDetails = true;
+            let user_email = req.body.email;
+            knex('users')
+            .returning('id')
+            .where('email', user_email)
+            .then((user_id) => {
+              console.log({user_id});
+              req.session.user_id = user_id;
+              return res.redirect('/');
+            });
+          //}
+        }
+      }
+      if (!loginDetails) {
+        console.log('Please enter a valid email/password');
+        return res.redirect('/');
+      }
     });
+    });
+
 
   mainRoutes.route("/").get((req, res) => {
     knex.select('*').from('todo_list').then(rows => {
@@ -29,7 +59,7 @@ module.exports = function(knex) {
       rows.forEach(function(element) {
     console.log(element.todo);
 });
-    })
+    });
 
     return res.render("index",
     {
@@ -66,7 +96,7 @@ module.exports = function(knex) {
         res.sendStatus(500);
       });
     }
-  })
+  });
 
   mainRoutes.route("/todo/:id").get((req, res) => {
     return res.send("it works");

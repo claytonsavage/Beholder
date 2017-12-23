@@ -1,17 +1,4 @@
 
-<form action="/register" method="post">
-  <p>
-    <label for="user-email">Email</label>
-    <input id="user-email" name="email">
-    <label for="user-password">Password</label>
-    <input id="user-password" name="password" type="password">
-  </p>
-  <p>
-    <button>Log in</button>
-  </p>
-</form>
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -26,6 +13,16 @@
   </head>
 
   <body>
+
+    <form action="/login" method="post">
+  <p>
+    <label for="user-email">Email</label>
+    <input id="user-email" name="email">
+    <label for="user-password">Password</label>
+    <input id="user-password" name="password" type="password">
+    <button>Log in</button>
+  </p>
+</form>
     <h1>Hello World!</h1>
     <form action="/todo/create" method="post">
   <p>

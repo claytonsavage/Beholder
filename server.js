@@ -13,6 +13,8 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
+const bcrypt      = require('bcrypt');
+const session     = require('cookie-session');
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -66,6 +68,12 @@ app.use(knexLogger(knex));
 
 
 // flash
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'development'
+}));
 app.use(flash());
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -87,6 +95,40 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 app.use(mainRoutes(knex));
+// app.post('/login', (req, res) => {
+//     // let loginDetails = false;
+//     // if (!req.body.email || !req.body.password) {
+//     //   loginDetails = false;
+//     //   console.log('Email/Password field cannot be empty');
+//     //   return res.redirect('/');
+//     // }
+//     // knex.select('*').from('users')
+//     // .then((result)=> {
+//     //   for (let user of result) {
+//     //     if (req.body.email === user.email) {
+//     //       // if (bcrypt.compareSync(password, user.pass_hash)) {
+
+//     //         loginDetails = true;
+//     //         let user_email = email;
+//     //         knex('users')
+//     //         .returning('id')
+//     //         .where('email', users.email)
+//     //         .then((user_id) => {
+//     //           console.log({user_id});
+//     //           req.session.user_id = user_id;
+//     //           return res.redirect('/');
+//     //         });
+//     //       //}
+//     //     }
+//     //   }
+//     //   if (!loginDetails) {
+//     //     console.log('Please enter a valid email/password');
+//     //     return res.redirect('/');
+//     //   }
+//     // });
+
+// });
+
 
 
 app.listen(PORT, () => {
