@@ -66,7 +66,7 @@ module.exports = (function() {
       // req.flash('errors', 'empty');
       res.redirect("/");
     } else {
-      knex('todo_list').insert({'todo': req.body.todo, 'id': 6}).then(() => {
+      knex('todo_list').insert({'todo': req.body.todo, 'id': }).then(() => {
         res.redirect("/");
       });
     }
