@@ -38,22 +38,25 @@ module.exports = function(knex) {
     });
 
   mainRoutes.route("/").get((req, res) => {
+    console.log(req.session.userID);
+    if (req.session.userID) {
+      knex.select('todo').
+      from('todo_list').
+      where('user_id', req.session.userID).
+      then(rows => {
+        console.log('rows:', rows);
+        //return res.render(req.session.userID[0]);
+      }
       // if user logined => render todos from db
       // if not , ask user to login in
-
-    knex.select('*').from('todo_list').then(rows => {
-      // todo pass this information in a nice way to the browser
-      // loop through the information and show it in the browser
-      rows.forEach(function(element) {
-    // console.log(element.todo);
-});
-    });
+  );
     return res.render("index",
     {
     // errors: req.flash('errors'),
     // messages: req.flash('messages')
     });
-});
+}
+  });
 
   mainRoutes.route("/user/:userid").get((req, res) => {
     return res.send("it works");
@@ -99,4 +102,9 @@ module.exports = function(knex) {
   });
 
   return mainRoutes;
-};
+}
+
+
+
+
+

@@ -6,7 +6,7 @@ $(() => {
     for(user of users) {
       $("<div>").text(user.todo).appendTo($("body"));
     }
-  });;
+  });
 
 //this is what we want to do
   //  $.ajax({
