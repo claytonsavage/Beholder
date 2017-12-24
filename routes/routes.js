@@ -25,6 +25,8 @@ module.exports = function(knex) {
           where("email", req.body.email).
           then((data) => {
             // console.log(data);
+            console.log("1", req.body.password);
+            console.log("2", data[0].password);
             if (req.body.password === data[0].password) {
               // set session
               req.session.userID = data[0].id;
