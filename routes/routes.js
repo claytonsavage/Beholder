@@ -1,69 +1,53 @@
 const mainRoutes = require("express").Router();
 
-
 module.exports = function(knex) {
-  // mainRoutes
-  //   .route("/register")
-  //   .get((req, res) => {
-  //     res.send("it works");
+  mainRoutes
+    .route("/register")
+    .get((req, res) => {
 
-  //   })
-  //   .post((req, res) => {
-  //     res.send("it works");
-  //   });
+
+    })
+    .post((req, res) => {
+
+    });
 
   mainRoutes
     .route("/login")
     .get((req, res) => {
-     return res.send("it works");
-
-    })
+      if (req.session.userID) {
+       return res.redirect('/');
+      // que user by email and password from db
+     // if verified => set session; req.session.userID = id (id from db);
+    }})
     .post((req, res) => {
-          let loginDetails = false;
-    if (!req.body.email || !req.body.password) {
-      loginDetails = false;
-      // console.log('Email/Password field cannot be empty');
-      // return res.redirect('/');
-      return res.send("<p> Email/Password field cannot be empty<a href='/''> Please login </a></p>");
-    }
-    knex.select('*').from('users')
-    .then((result)=> {
-      for (let user of result) {
-        if (req.body.email === user.email) {
-          // if (bcrypt.compareSync(password, user.pass_hash)) {
-            loginDetails = true;
-            let user_email = req.body.email;
-            knex('users')
-            .returning('id')
-            .where('email', user_email)
-            .then((user_id) => {
-              console.log({user_id});
-              req.session.user_id = user_id;
+      knex.select('name','email','password', 'id').
+          from("users").
+          where("email", req.body.email).
+          then((data) => {
+            // console.log(data);
+            if (req.body.password === data[0].password) {
+              // set session
+              req.session.userID = data[0].id;
               return res.redirect('/');
-            });
-          //}
-        }
-      if (req.body.email !== user.email || req.body.password !== user.password) {
-        return res.send("<p> Something doesn't match <a href='/'>try logging in again</a> </p>");
-      }
-      if (!loginDetails) {
-        return res.send("<p> We don't recognise your email address <a href='/'>have you registered</a> </p>");
-        // return res.redirect('/');
-      }
-    }
+            }
+            return res.send("wrong password");
+          }).
+          catch((err) => {
+            console.log(err);
+          });
     });
-    });
-
 
   mainRoutes.route("/").get((req, res) => {
+      // if user logined => render todos from db
+      // if not , ask user to login in
+
     knex.select('*').from('todo_list').then(rows => {
       // todo pass this information in a nice way to the browser
       // loop through the information and show it in the browser
       rows.forEach(function(element) {
-    console.log(element.todo);
+    // console.log(element.todo);
 });
     });
-
     return res.render("index",
     {
     // errors: req.flash('errors'),
@@ -110,7 +94,8 @@ module.exports = function(knex) {
   });
 
   mainRoutes.route("/logout").post((req, res) => {
-    return res.send("it works");
+    req.session.userID = null;
+    return res.send(200);
   });
 
   return mainRoutes;
