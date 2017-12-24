@@ -87,7 +87,7 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Mount all resource routes
-app.use("/api/users", mainRoutes(knex));
+app.use("/api/todo", mainRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {

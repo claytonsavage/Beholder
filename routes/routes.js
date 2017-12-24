@@ -40,6 +40,7 @@ module.exports = function(knex) {
   mainRoutes.route("/").get((req, res) => {
     console.log(req.session.userID);
     if (req.session.userID) {
+      res.render('index');
       knex.select('todo').
       from('todo_list').
       where('user_id', req.session.userID).
@@ -71,7 +72,12 @@ module.exports = function(knex) {
   });
 
   mainRoutes.route("/todo/index").get((req, res) => {
-    return res.send("it works");
+    knex.select('todo').
+    from('todo_list').
+    where('user_id', req.session.userID).
+    then(rows => {
+      return res.send(rows);
+    });
   });
 
   mainRoutes.route("/todo/create").post((req, res) => {
