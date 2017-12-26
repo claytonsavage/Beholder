@@ -18,13 +18,28 @@
    padding: 8px;
    resize: none;
    overflow: hidden;
+   bottom: 0px;
+   top: 0px;
+   border: dashed 5px lightgrey;
+   background-color:#051119;
+   color: white;
+   font-size: 20px;
  }
+
+textarea:focus, input:focus{
+    outline: none;
+    background-color: #051111;
+}
 
  .submit-todo {
   position: absolute;
-  height: 55px;
   width: 60px;
-  font-size: 45px;
+  top: 5px;
+  bottom: 10px;
+  font-size: 20px;
+  border: 0px;
+  background-color: #051119;
+  color: pink;
  }
 
 
