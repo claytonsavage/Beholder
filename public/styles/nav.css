@@ -1,0 +1,44 @@
+ #nav-bar {
+    position: fixed;
+    height: 50px;
+    background-color: #3a3a3a;
+    color: black;
+    left: 0px;
+    right: 0px;
+    padding-bottom: 10px;
+    font-size: 60px;
+    top: 0px;
+    height: 80px;
+}
+
+#nav-bar .header {
+    line-height: 80px;
+    margin: 20px;
+    color: pink;
+}
+
+.toggleButton {
+    color: pink;
+    position: relative;
+    left: 110px;
+    top: -74px;
+    font-size: 80px;
+}
+
+.fa-pencil-square-o {
+    position: absolute;
+    top: 15px;
+    left: 8px;
+}
+
+.navP {
+    position: absolute;
+    top: -6px;
+    left: 110px;
+
+}
+
+.toggleButton:hover {
+    background-color: white;
+    color: black;
+}

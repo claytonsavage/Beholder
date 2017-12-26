@@ -2,35 +2,56 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Home Page</title>
+    <title>Beholder</title>
 
+    <!-- external style sheets -->
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+    <!-- internal style sheets -->
+    <link rel="stylesheet" href="/styles/layout.css">
+    <link rel="stylesheet" href="/styles/nav.css">
+    <link rel="stylesheet" href="/styles/new-todo.css">
+
+    <!-- scripts -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
 
   <body>
-
-    <form action="/login" method="post">
-  <p>
-    <label for="email">Email</label>
-    <input id="email" name="email">
-    <label for="password">Password</label>
-    <input id="password" name="password" type="password">
-    <button>Log in</button>
-  </p>
-</form>
-    <h1>Hello World!</h1>
-    <form action="/todo/create" method="post">
-  <p>
-    <label for="to_Do"> Add</label>
-    <input id="to_Do" name="todo">
-  </p>
-  <button>Post</button>
-</form>
-  <div id="todos">  </div>
+    <main class="container center-me">
+      <div class="wrapper">
+        <div class="infoForUser"></div>
+        <section class="new-todo">
+          <!-- <h1>Hello World!</h1> -->
+          <form action="/todo/create" method="post" id="todoform">
+            <textarea name="text" placeholder="ToDo" class="textarea-new-todo"></textarea>
+            <input type="submit" value=">" class="submit-todo" id="to_Do" name="todo">
+          </form>
+        </section>
+          <form action="/login" method="post">
+            <p>
+            <label for="email">Email</label>
+            <input id="email" name="email">
+              <label for="password">Password</label>
+            <input id="password" name="password" type="password">
+            <button>Log in</button>
+            </p>
+          </form>
+        </section>
+      </div>
+      <section class="todo-container-class" id="todo-container">
+        <!-- content goes here -->
+        <div id="todos">  </div>
+      </section>
+    </main>
+   <nav id="nav-bar">
+      <span class="header">BEHOLDER</span>
+      <div class="toggleButton">
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        <p class="navP">+</p>
+      </div>
+    </nav>
   </body>
 </html>

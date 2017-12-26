@@ -1,7 +1,100 @@
-body {
-  background-color: #EEE;
+/*
+ * http://www.paulirish.com/2012/box-sizing-border-box-ftw/
+ * https://css-tricks.com/international-box-sizing-awareness-day/
+ * Do not modify these two selectors, please
+ */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
 
-  h1 {
-    color: #244751;
-  }
+/*
+ * Global layout stuff
+ */
+
+body {
+  margin: 0;
+  color: #244751;
+  background-color: #eee;
+  background-image: linear-gradient(#222,#051c17);
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+/*
+ * Additional CSS can be defined below or in other CSS files, as per instructions
+ */
+ main {
+   width: 100%;
+   position: relative;
+   padding: 280px;
+   padding-top: 82px;
+   padding-bottom: 90px;
+   background-color: rgba(100,200,200,0.1);
+
+ }
+
+ .todo-box {
+  border: 2px solid darkgrey;
+  margin: 6px;
+  background-color: darkgrey;
+  padding: 6px;
+  position: relative;
+  color: white;
+  opacity: 0.8;
+ }
+
+
+ .todo-header {
+  position: absolute;
+  right: 90px;
+    top: -22px;
+ }
+
+.category {
+  position: absolute;
+  overflow-wrap: break-word;
+  background-color: pink;
+  padding-left: 15px;
+  padding-top: 25px;
+  width: 100px;
+  height: 80px;
+
+ }
+
+.center-me {
+  margin: 0 auto;
+}
+
+.todo-text {
+  padding: 10px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  overflow-wrap: break-word;
+  font-size: 20px;
+}
+
+.todo-box:hover {
+  border: 2px solid pink;
+  opacity: 1;
+ }
+
+.error {
+  color: red;
+  font-weight: 700;
+  position: absolute;
+  left: 2em;
+  top: 120px;
+  background-color: #e0acac;
+  width: 385px;
+  padding: 10px;
+  border: solid 2px red;
+  border-radius: 10px;
+}
+
+.redlike {
+  color: darkgrey;
+  text-decoration: line-through;
+  background-color: #3a3a3a
 }

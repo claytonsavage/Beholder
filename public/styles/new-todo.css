@@ -1,0 +1,31 @@
+.new-todo {
+  margin: 6px;
+  padding: 6px;
+  position: fixed;
+  left: 20px;
+  right: 20px;
+  bottom: 4px;
+  z-index: 9000;
+ }
+
+ .new-todo-header {
+   border-bottom: 2px black solid;
+   margin-top: 4px;
+ }
+
+ .textarea-new-todo {
+   width: 95%;
+   padding: 8px;
+   resize: none;
+   overflow: hidden;
+ }
+
+ .submit-todo {
+  position: absolute;
+  height: 55px;
+  width: 60px;
+  font-size: 45px;
+ }
+
+
+
