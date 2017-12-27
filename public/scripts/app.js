@@ -64,7 +64,7 @@ $(() => {
     });
   });
 //this is what we want to do
-   $('#add-todo').on('click', function () {
+   // $('#add-todo').on('click', function () {
 
    //    var task = {
    //      user_id: req.session.userID,
@@ -72,15 +72,15 @@ $(() => {
    //    };
 
 
-   $.ajax({
-    method: "POST",
-    url: "/todo/create"
-  })
-  .done((users) => {
-    for(user of users) {
-      $("<div>").text(user.todo).appendTo($("todos"));
-    }
-  });
-});
+  //  $.ajax({
+  //   method: "POST",
+  //   url: "/todo/create"
+  // })
+  // .done((users) => {
+  //   for(user of users) {
+  //     $("<div>").text(user.todo).appendTo($("todos"));
+  //   }
+  // });
+// });
 
 });

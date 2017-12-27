@@ -91,6 +91,7 @@ module.exports = function(knex) {
 
 
   mainRoutes.route("/todo/create").post((req, res) => {
+    console.log('BODY TODO', req.body);
     if (!req.body.todo) {
       // req.flash('errors', 'empty');
       res.redirect("/");
