@@ -28,17 +28,17 @@ const books = require('google-books-search');
 //development testing
 const userInput = process.argv[2];
 //purchases
-walmart.search('toiletpapper').then(function(item) {
-  console.log(item['items'][0]['name'], item['items'][0]['salePrice']);
-});
+// walmart.search('toiletpapper').then(function(item) {
+//   console.log(item['items'][0]['name'], item['items'][0]['salePrice']);
+// });
 //books
-books.search('Professional JavaScript for Web Developers', function(error, results) {
-    if ( ! error ) {
-        console.log(results[0]['authors'], results[0]['categories'], results[0]['link'], results[0]['thumbnail']);
-    } else {
-        console.log(error);
-    }
-});
+// books.search('Professional JavaScript for Web Developers', function(error, results) {
+//     if ( ! error ) {
+//         console.log(results[0]['authors'], results[0]['categories'], results[0]['link'], results[0]['thumbnail']);
+//     } else {
+//         console.log(error);
+//     }
+// });
 //movies
 // MovieDB.searchMovie({ query: 'Shrek' }, (err, res) => {
 //   // console.log(`Review: ${res['results'][0]['vote_average']} Overview: ${res['results'][0]['overview']}`);
@@ -56,6 +56,7 @@ client.search({
 }).catch(e => {
   console.log(e);
 });
+
 
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT

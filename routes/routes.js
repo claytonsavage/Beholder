@@ -90,7 +90,6 @@ module.exports = function(knex) {
   });
 
 
-
   mainRoutes.route("/todo/create").post((req, res) => {
     if (!req.body.todo) {
       // req.flash('errors', 'empty');

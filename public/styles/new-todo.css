@@ -1,0 +1,46 @@
+.new-todo {
+  margin: 6px;
+  padding: 6px;
+  position: fixed;
+  left: 20px;
+  right: 20px;
+  bottom: 4px;
+  z-index: 9000;
+ }
+
+ .new-todo-header {
+   border-bottom: 2px black solid;
+   margin-top: 4px;
+ }
+
+ .textarea-new-todo {
+   width: 95%;
+   padding: 8px;
+   resize: none;
+   overflow: hidden;
+   bottom: 0px;
+   top: 0px;
+   border: dashed 5px lightgrey;
+   background-color:#051119;
+   color: white;
+   font-size: 20px;
+ }
+
+textarea:focus, input:focus{
+    outline: none;
+    background-color: #051111;
+}
+
+ .submit-todo {
+  position: absolute;
+  width: 60px;
+  top: 5px;
+  bottom: 10px;
+  font-size: 20px;
+  border: 0px;
+  background-color: #051119;
+  color: pink;
+ }
+
+
+
