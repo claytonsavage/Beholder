@@ -73,16 +73,15 @@ main {
 }
 
 .error {
-  color: red;
+  color: pink;
   font-weight: 700;
   position: absolute;
-  left: 2em;
-  top: 120px;
-  background-color: #e0acac;
-  width: 385px;
+  left: 35px;
+  bottom: -180px;
+  background-color: #051119;
+  width: 90%;
   padding: 10px;
-  border: solid 2px red;
-  border-radius: 10px;
+  border-bottom: solid 2px pink;
 }
 
 .redlike {
