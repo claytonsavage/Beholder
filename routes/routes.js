@@ -55,11 +55,9 @@ module.exports = function(knex) {
       // if user logined => render todos from db
       // if not , ask user to login in
   );
-    return res.render("index",
-    {
-    // errors: req.flash('errors'),
-    // messages: req.flash('messages')
-    });
+
+} else {
+  return res.render("/");
 }
   });
 
@@ -117,10 +115,20 @@ module.exports = function(knex) {
     return res.send("it works");
   });
 
+
+
   mainRoutes.route("/logout").post((req, res) => {
+    console.log('RS', req.session.userID);
     req.session.userID = null;
-    return res.send(200);
+    // res.redirect(300, "/");
+    if (!req.session.userID == null) {
+
+      return res.redirect('/');
+    }
+    return res.send("it doesn't work");
   });
+
+
 
   return mainRoutes;
 };

@@ -63,6 +63,19 @@ $(() => {
       $( ".textarea-new-todo" ).focus();
     });
   });
+
+
+// $('.logoutbutton').on('click', function(event) {
+//   event.preventDefault()
+//   $.ajax({
+//     url: '/logout',
+//     method: 'POST',
+//     success: function(){
+
+
+//     }
+//   });
+
 //this is what we want to do
    // $('#add-todo').on('click', function () {
 
