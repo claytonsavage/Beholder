@@ -86,7 +86,11 @@ main {
 }
 
 .redlike {
-  color: darkgrey;
+  color: black;
   text-decoration: line-through;
-  background-color: #3a3a3a;
+  border: 2px solid black;
+}
+
+.redlike .category {
+  background-color: rgba(255, 192, 203, 0.2);
 }

@@ -1,8 +1,8 @@
 $(function() {
-  $('body').on('click', '.tweet-box', function(event) {
-    $(this).closest('.tweet-box').toggleClass("redlike");
-    console.log('liked', $(this).closest('.tweet-box').data('id'));
-    const idOfTweet = $(this).closest('.tweet-box').data('id');
+  $('body').on('click', '.todo-box', function(event) {
+    $(this).closest('.todo-box').toggleClass("redlike");
+    console.log('liked', $(this).closest('.todo-box').data('id'));
+    const idOfTweet = $(this).closest('.todo-box').data('id');
 
     let likeCounter = 0;
     if ($(this).hasClass( "redlike" ) === true) {
@@ -15,12 +15,10 @@ $(function() {
 
   $.ajax({
         method: 'PUT',
-        url: `/tweets/${idOfTweet}`,
+        //might need to fix this
+        url: `/odo/${idOfTodo}`,
         data: $(this).hasClass( "redlike" ),
       }).done(function () {
-        console.log(likeToggler);
-        $('.counter').text('140');
-        $('.error').replaceWith('<div class="infoForUser"><div>');
         // update DOM after hearing back from server
         loadTweets();
       });

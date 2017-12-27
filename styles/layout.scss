@@ -89,7 +89,11 @@ body {
 }
 
 .redlike {
-  color: darkgrey;
+  color: black;
   text-decoration: line-through;
-  background-color: #3a3a3a
+  border: 2px solid black;
+}
+
+.redlike .category {
+ background-color: transparentize(pink, 0.8);
 }
