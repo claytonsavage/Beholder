@@ -57,7 +57,7 @@ module.exports = function(knex) {
   );
 
 } else {
-  return res.render("/");
+  return res.render("index");
 }
   });
 
@@ -89,10 +89,10 @@ module.exports = function(knex) {
 
 
   mainRoutes.route("/todo/create").post((req, res) => {
-    console.log('BODY TODO', req.body);
-    if (!req.body.todo) {
+    console.log('BODY', req.body, 'USERID', req.session.userID);
+    if (req.session.userID === undefined || !req.session) {
       // req.flash('errors', 'empty');
-      res.redirect("/");
+      return res.redirect("/");
     } else {
       knex('todo_list').insert({'todo': req.body.todo, 'user_id': req.session.userID, }).then(() => {
         res.redirect("/");
@@ -118,11 +118,10 @@ module.exports = function(knex) {
 
 
   mainRoutes.route("/logout").post((req, res) => {
-    console.log('RS', req.session.userID);
-    req.session.userID = null;
+    console.log('RS', req.session);
     // res.redirect(300, "/");
-    if (!req.session.userID == null) {
-
+    if (req.session.userID) {
+      req.session.userID = null;
       return res.redirect('/');
     }
     return res.send("it doesn't work");
