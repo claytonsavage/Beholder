@@ -82,6 +82,7 @@ module.exports = function(knex) {
     });
   });
 
+// I think this is the issue
   mainRoutes.route("/todo/create").post((req, res) => {
     if (!req.body.todo) {
       // req.flash('errors', 'empty');
