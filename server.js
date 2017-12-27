@@ -40,9 +40,9 @@ books.search('Professional JavaScript for Web Developers', function(error, resul
     }
 });
 //movies
-MovieDB.searchMovie({ query: 'Shrek' }, (err, res) => {
-  console.log(`Review: ${res['results'][0]['vote_average']} Overview: ${res['results'][0]['overview']}`);
-});
+// MovieDB.searchMovie({ query: 'Shrek' }, (err, res) => {
+//   // console.log(`Review: ${res['results'][0]['vote_average']} Overview: ${res['results'][0]['overview']}`);
+// });
 //places to eat
 const yelp = require('yelp-fusion');
 

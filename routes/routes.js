@@ -30,7 +30,9 @@ module.exports = function(knex) {
             if (req.body.password === data[0].password) {
               // set session
               req.session.userID = data[0].id;
+
               return res.redirect('/');
+
             }
             return res.send("wrong password");
           }).
@@ -40,7 +42,7 @@ module.exports = function(knex) {
     });
 
   mainRoutes.route("/").get((req, res) => {
-    console.log(req.session.userID);
+    console.log('SESSION ID: ', res.session.userID);
     if (req.session.userID) {
       res.render('index');
       knex.select('todo').
@@ -73,21 +75,28 @@ module.exports = function(knex) {
     return res.send("it works");
   });
 
+
+
   mainRoutes.route("/todo/index").get((req, res) => {
     knex.select('todo').
     from('todo_list').
     where('user_id', req.session.userID).
     then(rows => {
       return res.send(rows);
-    });
+    }).
+     catch((err) => {
+            console.log(err);
+          });
   });
+
+
 
   mainRoutes.route("/todo/create").post((req, res) => {
     if (!req.body.todo) {
       // req.flash('errors', 'empty');
       res.redirect("/");
     } else {
-      knex('todo_list').insert({'todo': req.body.todo}).then(() => {
+      knex('todo_list').insert({'todo': req.body.todo, 'user_id': req.session.userID, }).then(() => {
         res.redirect("/");
       }).catch((err) => {
         console.log(err);
@@ -95,6 +104,10 @@ module.exports = function(knex) {
       });
     }
   });
+
+
+
+
 
   mainRoutes.route("/todo/:id").get((req, res) => {
     return res.send("it works");
@@ -110,7 +123,7 @@ module.exports = function(knex) {
   });
 
   return mainRoutes;
-}
+};
 
 
 
