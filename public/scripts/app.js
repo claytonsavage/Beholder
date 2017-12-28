@@ -110,14 +110,27 @@ $(() => {
   });
 
 
-$.ajax ({
-  url: '/todo/4', // NEED TO CHANGE ===================
-  method: 'GET'
-}).
-done((data) => {
-  // console.log(`Review: ${data['results'][0]['vote_average']} Overview: ${data['results'][0]['overview']}`);
-  // console.log('Price: ', data.price, 'Rating: ', data.rating, 'Address', data.location.address1);
+var apisearch = function(id) {
+  $.ajax ({
+    url: `/todo/{id}`, // NEED TO CHANGE ===================
+    method: 'GET'
+  }).
+  done((data) => {
+    console.log(data);
+  Movies
+  console.log(`Review: ${data['results'][0]['vote_average']} Overview: ${data['results'][0]['overview']}`);
+  // Yelp
+  console.log('Price: ', data.price, 'Rating: ', data.rating, 'Address', data.location.address1);
+  // Walmart - book and product
   console.log('Title: ', data.name, 'Price: $', data.salePrice, 'Category: ', data.categoryPath, 'Description: ', data.categoryPath);
+  });
+};
+
+
+$('#moreinfo').click(function() {
+
+  let id = '1'; // data attribute here
+  apisearch(id);
 
 });
 
