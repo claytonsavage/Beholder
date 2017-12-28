@@ -94,7 +94,26 @@ module.exports = function(knex) {
       // req.flash('errors', 'empty');
       return res.redirect("/");
     } else {
-      knex('todo_list').insert({'todo': req.body.todo, 'user_id': req.session.userID, }).then(() => {
+
+      var str = req.body.todo;
+      var watchResult = /^watch/.test(str);
+      var bookResult = /^read/.test(str);
+      var restuarantResult = /^eat/.test(str);
+      var productResult = /^buy/.test(str);
+      // console.log('result ========>', result);
+      var catVar;
+
+      if(watchResult === true) {
+        catVar = 1;
+      } else if (bookResult === true) {
+        catVar = 2;
+      } else if (restuarantResult === true) {
+        catVar = 3;
+      } else if (productResult === true) {
+        catVar = 4;
+      }
+
+      knex('todo_list').insert({'todo': req.body.todo, 'user_id': req.session.userID, 'category_id': catVar}).then(() => {
         res.redirect("/");
       }).catch((err) => {
         console.log(err);
