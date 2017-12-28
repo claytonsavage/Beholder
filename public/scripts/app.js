@@ -4,7 +4,25 @@ $(() => {
 
    function createTodoElement(value){
     // change value.user.name
-    const $h2 = $('<h2>').text('category').addClass("category");
+      var str = value.todo;
+      var watchResult = /^watch/.test(str);
+      var bookResult = /^read/.test(str);
+      var restuarantResult = /^eat/.test(str);
+      var productResult = /^buy/.test(str);
+      // console.log('result ========>', result);
+      var catVar;
+
+      if(watchResult === true) {
+        catVar = "Movies";
+      } else if (bookResult === true) {
+        catVar = "Book";
+      } else if (restuarantResult === true) {
+        catVar = "Restuarant";
+      } else if (productResult === true) {
+        catVar = "Product";
+      }
+    console.log('CATEGORY -------->', value.category_id);
+    const $h2 = $('<h2>').text(catVar).addClass("category");
     const $header = $('<header>').addClass("todo-header").append($h2);
     // change value.content.text
     const $content = $('<p>').text(value.todo).addClass("todo-text");
@@ -51,6 +69,7 @@ $(() => {
       method: 'GET',
       dataType: 'JSON',
       success: function (morePostsJSON) {
+        console.log(morePostsJSON);
         renderTodos(morePostsJSON.reverse());
       }
     });
