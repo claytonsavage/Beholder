@@ -14,21 +14,36 @@ $(() => {
       var apiResult = "hello world";
 
       if(watchResult === true) {
-        catVar = "Movies";
+        catVar = "Movie";
         var apiquery = value.todo;
-        var removeCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
+        var apiQueryWithoutCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
       } else if (bookResult === true) {
         catVar = "Book";
         var apiquery = value.todo;
-        var removeCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
+        var apiQueryWithoutCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
       } else if (restuarantResult === true) {
-        catVar = "Restuarant";
+        catVar = "Restaurant";
          var apiquery = value.todo;
-         var removeCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
+         var apiQueryWithoutCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
       } else if (productResult === true) {
         catVar = "Product";
         var apiquery = value.todo;
-        var removeCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
+        var apiQueryWithoutCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
+      }
+      //pass apiquery to api based on catVar
+      // start with hardcoded then go from there
+      // cant bring  in api here
+      if (catVar === "Book") {
+        apiResult = "This is a great book!";
+      }
+       if (catVar === "Movie") {
+        apiResult = "This is a great movie!";
+      }
+       if (catVar === "Product") {
+        apiResult = "This is a great product!";
+      }
+       if (catVar === "Restaurant") {
+        apiResult = "This is a great restaurant!";
       }
 
     //console.log('CATEGORY -------->', value.category_id);
