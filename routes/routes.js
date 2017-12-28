@@ -25,8 +25,8 @@ module.exports = function(knex) {
           where("email", req.body.email).
           then((data) => {
             // console.log(data);
-            console.log("1", req.body.password);
-            console.log("2", data[0].password);
+            //console.log("1", req.body.password);
+            //console.log("2", data[0].password);
             if (req.body.password === data[0].password) {
               // set session
               req.session.userID = data[0].id;
@@ -43,7 +43,7 @@ module.exports = function(knex) {
 
   mainRoutes.route("/").get((req, res) => {
     var loginName = [];
-    console.log('SESSION ID: ', req.session.userID);
+    //console.log('SESSION ID: ', req.session.userID);
 
     if (req.session.userID) {
       // const username = { 'key': req.session.userID };
@@ -51,14 +51,14 @@ module.exports = function(knex) {
       // // console.log('KNEX =====>', knex.select('name').from('users').where(id = username['key']));
       // console.log('LOOOOK ---------------------', knex('users').whereRaw('id = ?', [1]));
       knex('users').where({ id: req.session.userID }).then(rows => { return rows[0].name; });
-      console.log('LOGINNNNNNN ===', loginName);
+      //console.log('LOGINNNNNNN ===', loginName);
       const useridentification = { key: "TEST" };
       res.render('index', useridentification);
       knex.select('todo').
       from('todo_list').
       where('user_id', req.session.userID).
       then(rows => {
-        console.log('rows:', rows);
+        //console.log('rows:', rows);
         // return res.render(req.session.userID[0]);
       }
       // if user logined => render todos from db
@@ -66,8 +66,8 @@ module.exports = function(knex) {
   );
 
 } else {
-  console.log('taking else route');
-  return res.render("index", {key: 'key123'});
+  //console.log('taking else route');
+  return res.render("index", {key: 'Login To Get Started!'});
 }
   });
 
@@ -99,7 +99,7 @@ module.exports = function(knex) {
 
 
   mainRoutes.route("/todo/create").post((req, res) => {
-    console.log('BODY', req.body, 'USERID', req.session.userID);
+    //console.log('BODY', req.body, 'USERID', req.session.userID);
     if (req.session.userID === undefined || !req.session) {
       // req.flash('errors', 'empty');
       return res.redirect("/");
@@ -144,7 +144,7 @@ module.exports = function(knex) {
 
 
   mainRoutes.route("/logout").post((req, res) => {
-    console.log('RS', req.session);
+    //console.log('RS', req.session);
     // res.redirect(300, "/");
     if (req.session.userID) {
       req.session.userID = null;

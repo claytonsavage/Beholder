@@ -31,7 +31,7 @@ $(() => {
         var removeCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
       }
 
-    console.log('CATEGORY -------->', value.category_id);
+    //console.log('CATEGORY -------->', value.category_id);
     const $h2 = $('<h2>').text(catVar).addClass("category");
     const $header = $('<header>').addClass("todo-header").append($h2);
     const $apiInfo = $('<h3>').text(apiResult).addClass("api-info").append($h2);
@@ -80,7 +80,7 @@ $(() => {
       method: 'GET',
       dataType: 'JSON',
       success: function (morePostsJSON) {
-        console.log(morePostsJSON);
+       // console.log(morePostsJSON);
         renderTodos(morePostsJSON.reverse());
       }
     });

@@ -1,7 +1,7 @@
 $(function() {
   $('body').on('click', '.todo-box', function(event) {
     $(this).closest('.todo-box').toggleClass("redlike");
-    console.log('liked', $(this).closest('.todo-box').data('id'));
+    //console.log('liked', $(this).closest('.todo-box').data('id'));
     const idOfTweet = $(this).closest('.todo-box').data('id');
 
     let likeCounter = 0;
