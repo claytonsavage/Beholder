@@ -5,10 +5,10 @@ $(() => {
    function createTodoElement(value){
     // change value.user.name
       var str = value.todo;
-      var watchResult = /^watch/.test(str);
-      var bookResult = /^read/.test(str);
-      var restuarantResult = /^eat/.test(str);
-      var productResult = /^buy/.test(str);
+      var watchResult = RegExp('watch', 'i').test(str);
+      var bookResult = RegExp('read', 'i').test(str);
+      var restuarantResult = RegExp('eat', 'i').test(str);
+      var productResult = RegExp('buy', 'i').test(str);
       // console.log('result ========>', result);
       var catVar;
 
