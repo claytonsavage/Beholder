@@ -2,6 +2,7 @@ const mainRoutes = require("express").Router();
 const yelp = require('yelp-fusion');
 const getSecrets = require('../secrets');
 const client = yelp.client(getSecrets.yelp_TOKEN);
+const MovieDB = require('moviedb')(getSecrets.THEMOVIEDB_TOKEN);
 
 module.exports = function(knex) {
   mainRoutes
@@ -138,35 +139,51 @@ module.exports = function(knex) {
 
 //knex.select('title', 'author', 'year').from('books')
 
-  mainRoutes.route("/todo/:id").get((req, res) => {
-    console.log('PARAMS', req.params);
-    knex.select('todo', 'category_id').from('todo_list').
-    where('id', req.params.id).
-    then((data) => {
-      // console.log('DATA IS ======>', data[0].todo);
-      //return res.json(data);
-      // yelo()....... .
-      // then((data) =>{
-      //   return res.json(data);
-      // })
+// --------- YELP API SET UP -----------
 
-      client.search({
-      term: req.params,
-      location: 'Vancouver'
-      }).
-      then(response => {
-      // console.log('YELP API OUTPUT ------->', 'Rating: ', response.jsonBody.businesses[0].rating, 'Price: ', response.jsonBody.businesses[0].price);
-      return res.json(response.jsonBody.businesses[0]);
-      }).
-      catch(e => {
-      console.log(e);
-      return res.send(500);
-});
+//   mainRoutes.route("/todo/:id").get((req, res) => {
+//     console.log('PARAMS', req.params);
+//     knex.select('todo', 'category_id').from('todo_list').
+//     where('id', req.params.id).
+//     then((data) => {
 
-    });
+//       client.search({
+//       term: req.params,
+//       location: 'Vancouver'
+//       }).
+//       then(response => {
+//       // console.log('YELP API OUTPUT ------->', 'Rating: ', response.jsonBody.businesses[0].rating, 'Price: ', response.jsonBody.businesses[0].price);
+//       return res.json(response.jsonBody.businesses[0]);
+//         console.log('Price: ', data.price, 'Rating: ', data.rating, 'Address', data.location.address1);
 
-  });
+//       }).
+//       catch(e => {
+//       console.log(e);
+//       return res.send(500);
+// });
 
+//     });
+
+//   });
+
+// ---------Movie API ------------------
+
+  //   mainRoutes.route("/todo/:id").get((req, res) => {
+  //   knex.select('todo', 'category_id').from('todo_list').
+  //   where('id', req.params.id).
+  //   then((data) => {
+
+  //    MovieDB.searchMovie({ query: 'Shrek' }, (err, data) => {
+  //     console.log(`Review: ${data['results'][0]['vote_average']} Overview: ${data['results'][0]['overview']}`);
+  //     return  res.json(data);
+
+  //   });
+
+  //   });
+
+  // });
+
+// ----------
 
 
 
