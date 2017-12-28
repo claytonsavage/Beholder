@@ -53,6 +53,8 @@ main {
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 25px;
+  width: 200px;
+  text-align: center;
 }
 
 .center-me {
