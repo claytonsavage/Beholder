@@ -80,10 +80,10 @@ body {
 .error {
   color: pink;
   font-weight: 700;
-  position: absolute;
-  left: 35px;
-  bottom: -180px;
+  position: relative;
   background-color: #051119;
+  bottom: 15px;
+  left: 35px;
   width: 90%;
   padding: 10px;
   border-bottom: solid 2px pink;
