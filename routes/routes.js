@@ -3,6 +3,7 @@ const yelp = require('yelp-fusion');
 const getSecrets = require('../secrets');
 const client = yelp.client(getSecrets.yelp_TOKEN);
 const MovieDB = require('moviedb')(getSecrets.THEMOVIEDB_TOKEN);
+const walmart = require('walmart')(getSecrets.walmart);
 
 module.exports = function(knex) {
   mainRoutes
@@ -166,6 +167,27 @@ module.exports = function(knex) {
 
 //   });
 
+
+// ---------- Walmart API ---------
+
+
+
+mainRoutes.route("/todo/:id").get((req, res) => {
+  knex
+    .select("todo", "category_id")
+    .from("todo_list")
+    .where("id", req.params.id)
+    .then(data => {
+      walmart.search('Toilet paper').
+      then(function(data) {
+        console.log('Title: ', data["items"][0]["name"], 'Price: $', data["items"][0]["salePrice"], 'Category: ', data["items"][0]['categoryPath'], 'Description: ', data["items"][0]['categoryPath']);
+        return res.json(data["items"][0]);
+      });
+    });
+});
+
+
+
 // ---------Movie API ------------------
 
   //   mainRoutes.route("/todo/:id").get((req, res) => {
@@ -182,12 +204,6 @@ module.exports = function(knex) {
   //   });
 
   // });
-
-// ----------
-
-
-
-
 
 
 

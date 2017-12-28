@@ -111,12 +111,14 @@ $(() => {
 
 
 $.ajax ({
-  url: '/todo/1', // NEED TO CHANGE ===================
+  url: '/todo/4', // NEED TO CHANGE ===================
   method: 'GET'
 }).
 done((data) => {
-  console.log(`Review: ${data['results'][0]['vote_average']} Overview: ${data['results'][0]['overview']}`);
+  // console.log(`Review: ${data['results'][0]['vote_average']} Overview: ${data['results'][0]['overview']}`);
   // console.log('Price: ', data.price, 'Rating: ', data.rating, 'Address', data.location.address1);
+  console.log('Title: ', data.name, 'Price: $', data.salePrice, 'Category: ', data.categoryPath, 'Description: ', data.categoryPath);
+
 });
 
 
