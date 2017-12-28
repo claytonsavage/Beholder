@@ -48,14 +48,14 @@ const yelp = require('yelp-fusion');
 
 const client = yelp.client(getSecrets.yelp_TOKEN);
 
-client.search({
-  term:'Four Barrel Coffee',
-  location: 'san francisco, ca'
-}).then(response => {
-  //console.log(response.jsonBody.businesses[0].rating, response.jsonBody.businesses[0].price);
-}).catch(e => {
-  console.log(e);
-});
+// client.search({
+//   term: req.params,
+//   location: 'Vancouver'
+// }).then(response => {
+//   //console.log(response.jsonBody.businesses[0].rating, response.jsonBody.businesses[0].price);
+// }).catch(e => {
+//   console.log(e);
+// });
 
 
 

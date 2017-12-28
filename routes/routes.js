@@ -1,4 +1,7 @@
 const mainRoutes = require("express").Router();
+const yelp = require('yelp-fusion');
+const getSecrets = require('../secrets');
+const client = yelp.client(getSecrets.yelp_TOKEN);
 
 module.exports = function(knex) {
   mainRoutes
@@ -133,9 +136,46 @@ module.exports = function(knex) {
   });
 
 
+//knex.select('title', 'author', 'year').from('books')
+
   mainRoutes.route("/todo/:id").get((req, res) => {
-    return res.send("it works");
+    console.log('PARAMS', req.params);
+    knex.select('todo', 'category_id').from('todo_list').
+    where('id', req.params.id).
+    then((data) => {
+      // console.log('DATA IS ======>', data[0].todo);
+      //return res.json(data);
+      // yelo()....... .
+      // then((data) =>{
+      //   return res.json(data);
+      // })
+
+      client.search({
+      term: req.params,
+      location: 'Vancouver'
+      }).
+      then(response => {
+      // console.log('YELP API OUTPUT ------->', 'Rating: ', response.jsonBody.businesses[0].rating, 'Price: ', response.jsonBody.businesses[0].price);
+      return res.json(response.jsonBody.businesses[0]);
+      }).
+      catch(e => {
+      console.log(e);
+      return res.send(500);
+});
+
+    });
+
   });
+
+
+
+
+
+
+
+
+
+
 
   mainRoutes.route("/todo/:id/update").post((req, res) => {
     return res.send("it works");
