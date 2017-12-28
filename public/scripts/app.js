@@ -11,25 +11,36 @@ $(() => {
       var productResult = RegExp('buy', 'i').test(str);
       // console.log('result ========>', result);
       var catVar;
+      var apiResult = "hello world";
 
       if(watchResult === true) {
         catVar = "Movies";
+        var apiquery = value.todo;
+        var removeCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
       } else if (bookResult === true) {
         catVar = "Book";
+        var apiquery = value.todo;
+        var removeCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
       } else if (restuarantResult === true) {
         catVar = "Restuarant";
+         var apiquery = value.todo;
+         var removeCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
       } else if (productResult === true) {
         catVar = "Product";
+        var apiquery = value.todo;
+        var removeCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
       }
+
     console.log('CATEGORY -------->', value.category_id);
     const $h2 = $('<h2>').text(catVar).addClass("category");
     const $header = $('<header>').addClass("todo-header").append($h2);
+    const $apiInfo = $('<h3>').text(apiResult).addClass("api-info").append($h2);
     // change value.content.text
     const $content = $('<p>').text(value.todo).addClass("todo-text");
     return $('<article>')
       .addClass("todo-box")
       .data("id", value._id)
-      .append($header, $content);
+      .append($header, $content, $apiInfo);
   }
 
    function renderTodos(todos){

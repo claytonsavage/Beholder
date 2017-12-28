@@ -98,3 +98,9 @@ body {
 .redlike .category {
  background-color: transparentize(pink, 0.8);
 }
+
+.api-info {
+  z-index: 9100;
+  color: blue;
+  background-color: white;
+}

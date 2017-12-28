@@ -42,22 +42,32 @@ module.exports = function(knex) {
     });
 
   mainRoutes.route("/").get((req, res) => {
-    console.log('SESSION ID: ', res.session.userID);
+    var loginName = [];
+    console.log('SESSION ID: ', req.session.userID);
+
     if (req.session.userID) {
-      res.render('index');
+      // const username = { 'key': req.session.userID };
+      // console.log('KONRAD ============>', username['key']);
+      // // console.log('KNEX =====>', knex.select('name').from('users').where(id = username['key']));
+      // console.log('LOOOOK ---------------------', knex('users').whereRaw('id = ?', [1]));
+      knex('users').where({ id: req.session.userID }).then(rows => { return rows[0].name; });
+      console.log('LOGINNNNNNN ===', loginName);
+      const useridentification = { key: "TEST" };
+      res.render('index', useridentification);
       knex.select('todo').
       from('todo_list').
       where('user_id', req.session.userID).
       then(rows => {
         console.log('rows:', rows);
-        //return res.render(req.session.userID[0]);
+        // return res.render(req.session.userID[0]);
       }
       // if user logined => render todos from db
       // if not , ask user to login in
   );
 
 } else {
-  return res.render("index");
+  console.log('taking else route');
+  return res.render("index", {key: 'key123'});
 }
   });
 
@@ -121,9 +131,6 @@ module.exports = function(knex) {
       });
     }
   });
-
-
-
 
 
   mainRoutes.route("/todo/:id").get((req, res) => {

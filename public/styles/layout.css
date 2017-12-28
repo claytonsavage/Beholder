@@ -95,3 +95,9 @@ main {
 .redlike .category {
   background-color: rgba(255, 192, 203, 0.2);
 }
+
+.api-info {
+  z-index: 9100;
+  color: blue;
+  background-color: white;
+}

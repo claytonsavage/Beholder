@@ -28,7 +28,7 @@ const books = require('google-books-search');
 //development testing
 const userInput = process.argv[2];
 //purchases
-// walmart.search('toiletpapper').then(function(item) {
+// walmart.search(removeCategory).then(function(item) {
 //   console.log(item['items'][0]['name'], item['items'][0]['salePrice']);
 // });
 //books
@@ -91,9 +91,9 @@ app.use(express.static("public"));
 app.use("/api/todo", mainRoutes(knex));
 
 // Home page
-app.get("/", (req, res) => {
-  res.render("index");
-});
+// app.get("/", (req, res) => {
+//   res.render("index", {key: 'test'});
+// });
 app.use(mainRoutes(knex));
 
 
