@@ -58,6 +58,12 @@ const client = yelp.client(getSecrets.yelp_TOKEN);
 // });
 
 
+// app.use((req, res, next) => {
+//   res.locals.userID = req.session.userID;
+//   next();
+// });
+
+
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -91,12 +97,95 @@ app.use(express.static("public"));
 app.use("/api/todo", mainRoutes(knex));
 
 // Home page
-// app.get("/", (req, res) => {
-//   res.render("index", {key: 'test'});
-// });
+app.get("/", (req, res) => {
+   if (req.session.userID) {
+      // const username = { 'key': req.session.userID };
+      knex('users').where({ id: req.session.userID }).then(rows => { return rows[0].name; });
+      const useridentification = { key: "TEST" };
+      res.render('index', useridentification);
+      knex.select('todo').
+      from('todo_list').
+      where('user_id', req.session.userID).
+      then(rows => {
+      }
+  );
+      res.render("index", {userID: req.session.userID,
+                          key: 'test'}
+                        );
+  } else {
+  //console.log('taking else route');
+  console.log("here2");
+  return res.render("index", {userID: "Not login"});
+  }
+});
+
+
 app.use(mainRoutes(knex));
 
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
+
+
+
+
+  // mainRoutes.route("/").get((req, res) => {
+//     var loginName = [];
+//     //console.log('SESSION ID: ', req.session.userID);
+
+//     if (req.session.userID) {
+//       const username = { 'key': req.session.userID };
+//       // console.log('KONRAD ============>', username['key']);
+//       // // console.log('KNEX =====>', knex.select('name').from('users').where(id = username['key']));
+//       // console.log('LOOOOK ---------------------', knex('users').whereRaw('id = ?', [1]));
+//       knex('users').where({ id: req.session.userID }).then(rows => { return rows[0].name; });
+//       //console.log('LOGINNNNNNN ===', loginName);
+//       const useridentification = { key: "TEST" };
+//       res.render('index', useridentification);
+//       knex.select('todo').
+//       from('todo_list').
+//       where('user_id', req.session.userID).
+//       then(rows => {
+//         //console.log('rows:', rows);
+//         // return res.render(req.session.userID[0]);
+//       }
+//       // if user logined => render todos from db
+//       // if not , ask user to login in
+
+//   );
+//       console.log("here1");
+//       console.log(req.session.userID);
+//       return res.render("index", {userID: req.session.userID});
+//   } else {
+//   //console.log('taking else route');
+//   console.log("here2");
+//   return res.render("index", {userID: "Not login"});
+//   }
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
