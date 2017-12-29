@@ -118,11 +118,11 @@ var apisearch = function(id) {
   done((data) => {
     console.log(data);
   Movies
-  console.log(`Review: ${data['results'][0]['vote_average']} Overview: ${data['results'][0]['overview']}`);
+  // console.log(`Review: ${data['results'][0]['vote_average']} Overview: ${data['results'][0]['overview']}`);
   // Yelp
   console.log('Price: ', data.price, 'Rating: ', data.rating, 'Address', data.location.address1);
   // Walmart - book and product
-  console.log('Title: ', data.name, 'Price: $', data.salePrice, 'Category: ', data.categoryPath, 'Description: ', data.categoryPath);
+  // console.log('Title: ', data.name, 'Price: $', data.salePrice, 'Category: ', data.categoryPath, 'Description: ', data.categoryPath);
   });
 };
 

@@ -111,10 +111,10 @@ module.exports = function(knex) {
     } else {
 
       var str = req.body.todo;
-      var watchResult = /^watch/.test(str);
-      var bookResult = /^read/.test(str);
-      var restuarantResult = /^eat/.test(str);
-      var productResult = /^buy/.test(str);
+      var watchResult = RegExp('watch', 'i').test(str);
+      var bookResult = RegExp('read', 'i').test(str);
+      var restuarantResult = RegExp('eat', 'i').test(str);
+      var productResult = RegExp('buy', 'i').test(str);
       // console.log('result ========>', result);
       var catVar;
 
@@ -143,36 +143,39 @@ module.exports = function(knex) {
 // --------- YELP API SET UP -----------
 
   mainRoutes.route("/todo/:id").get((req, res) => {
-    console.log('PARAMS', req.params);
+    //console.log('PARAMS', req.params);
     knex.select('todo', 'category_id').from('todo_list').
     where('id', req.params.id).
     then((data) => {
-      console.log('DATA ========>>>>>', data);
+      //console.log(data[0].todo);
+      var query = data[0].todo;
+      var queryString = query.substr(query.indexOf(' ') + 1);
+      //console.log('DATA ========>>>>>', data);
 
       if (data[0]['category_id'] === 3) {
         client.search({
-        term: req.params,
+        term: queryString,
         location: 'Vancouver'
       }).
       then(response => {
-      // console.log('YELP API OUTPUT ------->', 'Rating: ', response.jsonBody.businesses[0].rating, 'Price: ', response.jsonBody.businesses[0].price);
+      console.log('YELP API OUTPUT ------->', 'Rating: ', response.jsonBody.businesses[0].rating, 'Price: ', response.jsonBody.businesses[0].price);
         return res.json(response.jsonBody.businesses[0]);
-        // console.log('Price: ', data.price, 'Rating: ', data.rating, 'Address', data.location.address1);
+        console.log('Price: ', data.price, 'Rating: ', data.rating, 'Address', data.location.address1);
 
       }).
       catch(e => {
-       console.log(e);
+        console.log(e);
         return res.send(500);
       });
       } else if (data[0]['category_id'] === 2 || data[0]['category_id'] === 4) {
-        walmart.search('Toilet paper').
+        walmart.search(queryString).
         then(function(data) {
-        // console.log('Title: ', data["items"][0]["name"], 'Price: $', data["items"][0]["salePrice"], 'Category: ', data["items"][0]['categoryPath'], 'Description: ', data["items"][0]['categoryPath']);
+        console.log('Title: ', data["items"][0]["name"], 'Price: $', data["items"][0]["salePrice"], 'Category: ', data["items"][0]['categoryPath'], 'Description: ', data["items"][0]['categoryPath']);
         return res.json(data["items"][0]);
         });
       } else if (data[0]['category_id'] === 1) {
-            MovieDB.searchMovie({ query: 'Shrek' }, (err, data) => {
-      // console.log(`Review: ${data['results'][0]['vote_average']} Overview: ${data['results'][0]['overview']}`);
+            MovieDB.searchMovie({ query: queryString }, (err, data) => {
+        console.log(`Review: ${data['results'][0]['vote_average']} Overview: ${data['results'][0]['overview']}`);
       return  res.json(data);
 
     });
