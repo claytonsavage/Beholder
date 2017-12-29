@@ -91,7 +91,7 @@ module.exports = function(knex) {
 
 
   mainRoutes.route("/todo/index").get((req, res) => {
-    knex.select('todo').
+    knex.select('todo', 'id').
     from('todo_list').
     where('user_id', req.session.userID).
     then(rows => {
@@ -115,7 +115,6 @@ module.exports = function(knex) {
       var bookResult = RegExp('read', 'i').test(str);
       var restuarantResult = RegExp('eat', 'i').test(str);
       var productResult = RegExp('buy', 'i').test(str);
-      // console.log('result ========>', result);
       var catVar;
 
       if(watchResult === true) {

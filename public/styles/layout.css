@@ -101,3 +101,13 @@ main {
   font-size: 12px;
   margin-top: -15px;
 }
+
+.information-about {
+  position: fixed;
+  font-size: 20px;
+  color: white;
+  bottom: 200px;
+  background-color: black;
+  height: 160px;
+  padding: 30px;
+}

@@ -3,13 +3,12 @@ $(() => {
   //need to add the current user id to the new todo being created
 
    function createTodoElement(value){
-    // change value.user.name
+    console.log("THIS IS VALUE we are getting the id of this",value);
       var str = value.todo;
       var watchResult = RegExp('watch', 'i').test(str);
       var bookResult = RegExp('read', 'i').test(str);
       var restuarantResult = RegExp('eat', 'i').test(str);
       var productResult = RegExp('buy', 'i').test(str);
-      // console.log('result ========>', result);
       var catVar;
       var apiResult = "hello world";
 
@@ -33,6 +32,7 @@ $(() => {
       //pass apiquery to api based on catVar
       // start with hardcoded then go from there
       // cant bring  in api here
+      //have api result show here...
       if (catVar === "Book") {
         apiResult = "This is a great book!";
       }
@@ -46,15 +46,13 @@ $(() => {
         apiResult = "This is a great restaurant!";
       }
 
-    //console.log('CATEGORY -------->', value.category_id);
     const $h2 = $('<h2>').text(catVar).addClass("category");
     const $header = $('<header>').addClass("todo-header").append($h2);
     const $apiInfo = $('<h3>').text(apiResult).addClass("api-info").append($h2);
-    // change value.content.text
     const $content = $('<p>').text(value.todo).addClass("todo-text");
     return $('<article>')
       .addClass("todo-box")
-      .data("id", value._id)
+      .attr("id", value.id)
       .append($header, $content, $apiInfo);
   }
 
@@ -112,26 +110,33 @@ $(() => {
 
 var apisearch = function(id) {
   $.ajax ({
-    url: `/todo/{id}`, // NEED TO CHANGE ===================
+    url: `/todo/${id}`,
     method: 'GET'
   }).
   done((data) => {
-    console.log(data);
-  Movies
+
+    // this is for movies
+    // based on data id check category and run the api associated with that category
+    // data is the id of the todo so we need to query the database to get the category
+    if ()
+    $('.information-from-api').replaceWith(`<div class="information-about information-from-api">${data.results['0'].title}, ${data.results['0'].overview}</div>`);
+  //Movies
   // console.log(`Review: ${data['results'][0]['vote_average']} Overview: ${data['results'][0]['overview']}`);
   // Yelp
-  console.log('Price: ', data.price, 'Rating: ', data.rating, 'Address', data.location.address1);
+  //console.log('Price: ', data.price, 'Rating: ', data.rating, 'Address', data.location.address1);
   // Walmart - book and product
   // console.log('Title: ', data.name, 'Price: $', data.salePrice, 'Category: ', data.categoryPath, 'Description: ', data.categoryPath);
   });
 };
 
+//this is not running
+$('.container').on('click', 'article', function() {
 
-$('#moreinfo').click(function() {
-
-  let id = '1'; // data attribute here
+  // we need this data to be unique to the specific todo being created.
+  // make it so this is the specific thing being clicked
+  console.log($(this).attr('id'));
+  let id = $(this).attr('id');
   apisearch(id);
-
 });
 
 
