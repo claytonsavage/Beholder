@@ -118,7 +118,7 @@ var apisearch = function(id) {
     // this is for movies
     // based on data id check category and run the api associated with that category
     // data is the id of the todo so we need to query the database to get the category
-    if ()
+    //if ()
     $('.information-from-api').replaceWith(`<div class="information-about information-from-api">${data.results['0'].title}, ${data.results['0'].overview}</div>`);
   //Movies
   // console.log(`Review: ${data['results'][0]['vote_average']} Overview: ${data['results'][0]['overview']}`);
