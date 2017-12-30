@@ -39,8 +39,8 @@ $(() => {
       }
 
     const $h2 = $('<h2>').text(catVar).addClass("category");
-    const $header = $('<header>').addClass("todo-header").append($h2);
-    const $apiInfo = $('<h3>').text(apiResult).addClass("api-info").append($h2);
+    const $header = $('<header>').addClass("todo-header");
+    const $apiInfo = $('<h3>').text(apiResult).addClass("api-info");
     const $content = $('<p>').text(value.todo).addClass("todo-text");
     const $categorychanger = $('<div>').addClass("toggle-button");
     const $categoryMovie = $('<div>').text('Movie').addClass("movie-toggle");
@@ -52,7 +52,7 @@ $(() => {
       .attr("todo", value.todo)
       .attr("id", value.id)
       .attr("category", value.category_id)
-      .append($header, $content, $apiInfo, $categorychanger, $categoryMovie, $categoryBook, $categoryPurchase, $categoryRestaurant);
+      .append($header, $content, $apiInfo, $categorychanger, $categoryMovie, $categoryBook, $categoryPurchase, $categoryRestaurant, $h2);
   }
 
    function renderTodos(todos){
@@ -83,8 +83,8 @@ $(() => {
       url: '/todo/index',
       method: 'GET',
       dataType: 'JSON',
-      success: function (morePostsJSON) {
-        renderTodos(morePostsJSON.reverse());
+      success: function (moreTodos) {
+        renderTodos(moreTodos.reverse());
       }
     });
   };
@@ -130,4 +130,58 @@ $(() => {
     let id = $(this).attr('id');
     apisearch(id, category);
   });
+
+    $('body').on('click', '.movie-toggle', function(event) {
+    $(this).closest('.movie-toggle').toggleClass("selected-cat");
+    let currentId = $(this).closest('article').attr("id");
+    $(this).closest('article').children('h2').text('Movie');
+    $.ajax({
+      url: `/todo/${currentId}/update/movie`,
+      method: 'POST',
+      success: function(moreTodos) {
+        loadTodos();
+      }
+    })
+  });
+
+  $('body').on('click', '.book-toggle', function(event) {
+    $(this).closest('.movie-toggle').toggleClass("selected-cat");
+    let currentId = $(this).closest('article').attr("id");
+    $(this).closest('article').children('h2').text('Book')
+    $.ajax({
+      url: `/todo/${currentId}/update/book`,
+      method: 'POST',
+      success: function (moreTodos) {
+        loadTodos();
+      }
+    });
+  });
+
+  $('body').on('click', '.restaurant-toggle', function(event) {
+    $(this).closest('.movie-toggle').toggleClass("selected-cat");
+    let currentId = $(this).closest('article').attr("id");
+    $(this).closest('article').children('h2').text('Restaurant')
+    $.ajax({
+      url: `/todo/${currentId}/update/restaurant`,
+      method: 'POST',
+      success: function (moreTodos) {
+        loadTodos();
+      }
+    })
+  });
+
+  $('body').on('click', '.purchase-toggle', function(event) {
+    $(this).closest('.movie-toggle').toggleClass("selected-cat");
+    let currentId = $(this).closest('article').attr("id");
+    $(this).closest('article').children('h2').text('Product')
+     $.ajax({
+      url: `/todo/${currentId}/update/purchase`,
+      method: 'POST',
+      success: function (moreTodos) {
+        loadTodos();
+      }
+      })
+  });
+
+
 });
