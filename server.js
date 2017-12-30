@@ -94,6 +94,8 @@ app.use("/api/todo", mainRoutes(knex));
 // app.get("/", (req, res) => {
 //   res.render("index", {key: 'test'});
 // });
+
+
 app.use(mainRoutes(knex));
 
 

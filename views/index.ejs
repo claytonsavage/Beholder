@@ -47,7 +47,11 @@
       <p class="navP">+</p>
     </div>
 
-<%= key %>
+  <% if (userID) { %>
+
+  <div class="username">
+    What do you want to do today <%= username %>?
+  </div>
 
       <div class="logout">
           <form action="/logout" method="post">
@@ -55,6 +59,8 @@
           </form>
 
       </div>
+
+      <% } else { %>
 
         <div class="login">
           <form action="/login" method="post">
@@ -66,6 +72,9 @@
             <button>Log in</button>
             </p>
           </form>
+
+           <% } %>
+
         </div>
     </nav>
   </body>

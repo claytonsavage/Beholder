@@ -26,6 +26,7 @@ module.exports = function(knex) {
           then((data) => {
             if (req.body.password === data[0].password) {
               req.session.userID = data[0].id;
+              req.session.username = data[0].name;
               return res.redirect('/');
             }
             return res.send("wrong password");
@@ -39,7 +40,7 @@ module.exports = function(knex) {
     var loginName = [];
     if (req.session.userID) {
       knex('users').where({ id: req.session.userID }).then(rows => { return rows[0].name; });
-      const useridentification = { key: "TEST" };
+      const useridentification = {userID: req.session.userID, username: req.session.username};
       res.render('index', useridentification);
       knex.select('todo').
       from('todo_list').
@@ -48,7 +49,7 @@ module.exports = function(knex) {
       }
     );
   } else {
-    return res.render("index", {key: 'Login To Get Started!'});
+    return res.render("index", {userID: req.session.userID, username: req.session.username});
   }
     });
 
