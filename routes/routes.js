@@ -112,7 +112,14 @@ module.exports = function(knex) {
     where('id', req.params.id).
     then((data) => {
       var query = data[0].todo;
-      var queryString = query.substr(query.indexOf(' ') + 1);
+      // this needs to work for generic
+      var filterwatch = query.replace(/watch/i, '');
+      var filterbuy = filterwatch.replace(/buy/i, '');
+      var filtereat = filterbuy.replace(/eat/i, '');
+      var filterread = filtereat.replace(/read/i, '');
+
+      var queryString = filterread;
+      //query.substr(query.indexOf(' ') + 1);
       if (data[0]['category_id'] === 3) {
         client.search({
         term: queryString,

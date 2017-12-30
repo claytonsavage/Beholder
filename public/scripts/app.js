@@ -5,7 +5,7 @@ $(() => {
    function createTodoElement(value){
       var str = value.category_id;
       var catVar;
-      var apiResult = "hello world";
+      var apiResult;
 
       if(str === 1) {
         catVar = "Movie";
@@ -23,6 +23,8 @@ $(() => {
         catVar = "Product";
         var apiquery = value.todo;
         var apiQueryWithoutCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
+      } else {
+        let apiQueryWithoutCategory = value.todo;
       }
 
       if (catVar === "Book") {
@@ -106,13 +108,21 @@ $(() => {
       done((data) => {
         $('.information-from-api').replaceWith(`<div class="information-about information-from-api">${data.results['0'].title}, ${data.results['0'].overview}</div>`);
       });
-    } if (category === '4' || category === '2') {
+    } if (category === '4') {
       $.ajax ({
         url: `/todo/${id}`,
         method: 'GET'
       }).
       done((data) => {
         $('.information-from-api').replaceWith(`<div class="information-about information-from-api">${data.name} costs: $${data.salePrice} description: ${data.shortDescription}</div>`);
+      });
+    } if (category === '2') {
+      $.ajax ({
+        url: `/todo/${id}`,
+        method: 'GET'
+      }).
+      done((data) => {
+        $('.information-from-api').replaceWith(`<div class="information-about information-from-api">${data.name} - Book Description: ${data.shortDescription}</div>`);
       });
     } if (category === '3') {
        $.ajax ({
