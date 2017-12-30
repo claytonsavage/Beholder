@@ -49,6 +49,10 @@
 
   <% if (userID) { %>
 
+  <div class="username">
+    What do you want to do today <%= username %>?
+  </div>
+
       <div class="logout">
           <form action="/logout" method="post">
             <button class="logoutbutton" type="submit">Log out</button>
