@@ -91,7 +91,7 @@ module.exports = function(knex) {
 
 
   mainRoutes.route("/todo/index").get((req, res) => {
-    knex.select('todo', 'id').
+    knex.select('todo', 'id', 'category_id').
     from('todo_list').
     where('user_id', req.session.userID).
     then(rows => {

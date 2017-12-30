@@ -53,6 +53,7 @@ $(() => {
     return $('<article>')
       .addClass("todo-box")
       .attr("id", value.id)
+      .attr("category", value.category_id)
       .append($header, $content, $apiInfo);
   }
 
@@ -108,25 +109,38 @@ $(() => {
   });
 
 
-var apisearch = function(id) {
-  $.ajax ({
-    url: `/todo/${id}`,
-    method: 'GET'
-  }).
-  done((data) => {
-
-    // this is for movies
-    // based on data id check category and run the api associated with that category
-    // data is the id of the todo so we need to query the database to get the category
-    //if ()
-    $('.information-from-api').replaceWith(`<div class="information-about information-from-api">${data.results['0'].title}, ${data.results['0'].overview}</div>`);
-  //Movies
-  // console.log(`Review: ${data['results'][0]['vote_average']} Overview: ${data['results'][0]['overview']}`);
-  // Yelp
-  //console.log('Price: ', data.price, 'Rating: ', data.rating, 'Address', data.location.address1);
-  // Walmart - book and product
-  // console.log('Title: ', data.name, 'Price: $', data.salePrice, 'Category: ', data.categoryPath, 'Description: ', data.categoryPath);
-  });
+var apisearch = function(id, category) {
+  if (category === '1') {
+    $.ajax ({
+      url: `/todo/${id}`,
+      method: 'GET'
+    }).
+    done((data) => {
+      $('.information-from-api').replaceWith(`<div class="information-about information-from-api">${data.results['0'].title}, ${data.results['0'].overview}</div>`);
+    });
+  } if (category === '4' || category === '2') {
+    $.ajax ({
+      url: `/todo/${id}`,
+      method: 'GET'
+    }).
+    done((data) => {
+      $('.information-from-api').replaceWith(`<div class="information-about information-from-api">${data.name} costs: $${data.salePrice} description: ${data.shortDescription}</div>`);
+    });
+  } if (category === '3') {
+     $.ajax ({
+      url: `/todo/${id}`,
+      method: 'GET'
+    }).
+    done((data) => {
+      $('.information-from-api').replaceWith(`<div class="information-about information-from-api">price: ${data.price} rating: $${data.rating} address: ${data.location.address1}</div>`);
+    });
+  }
+    //Movies
+    // console.log(`Review: ${data['results'][0]['vote_average']} Overview: ${data['results'][0]['overview']}`);
+    // Yelp
+    //console.log('Price: ', data.price, 'Rating: ', data.rating, 'Address', data.location.address1);
+    // Walmart - book and product
+    // console.log('Title: ', data.name, 'Price: $', data.salePrice, 'Category: ', data.categoryPath, 'Description: ', data.categoryPath);
 };
 
 //this is not running
@@ -135,8 +149,10 @@ $('.container').on('click', 'article', function() {
   // we need this data to be unique to the specific todo being created.
   // make it so this is the specific thing being clicked
   console.log($(this).attr('id'));
+  console.log($(this).attr('category'));
+  let category = $(this).attr('category');
   let id = $(this).attr('id');
-  apisearch(id);
+  apisearch(id, category);
 });
 
 
