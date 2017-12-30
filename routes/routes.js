@@ -39,7 +39,7 @@ module.exports = function(knex) {
     var loginName = [];
     if (req.session.userID) {
       knex('users').where({ id: req.session.userID }).then(rows => { return rows[0].name; });
-      const useridentification = { key: "TEST" };
+      const useridentification = {userID: req.session.userID};
       res.render('index', useridentification);
       knex.select('todo').
       from('todo_list').
@@ -48,7 +48,7 @@ module.exports = function(knex) {
       }
     );
   } else {
-    return res.render("index", {key: 'Login To Get Started!'});
+    return res.render("index", {userID: req.session.userID});
   }
     });
 
