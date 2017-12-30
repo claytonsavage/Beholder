@@ -104,9 +104,7 @@ module.exports = function(knex) {
 
 
   mainRoutes.route("/todo/create").post((req, res) => {
-    //console.log('BODY', req.body, 'USERID', req.session.userID);
     if (req.session.userID === undefined || !req.session) {
-      // req.flash('errors', 'empty');
       return res.redirect("/");
     } else {
 
@@ -136,31 +134,19 @@ module.exports = function(knex) {
     }
   });
 
-
-//knex.select('title', 'author', 'year').from('books')
-
-// --------- YELP API SET UP -----------
-
   mainRoutes.route("/todo/:id").get((req, res) => {
-    //console.log('PARAMS', req.params);
     knex.select('todo', 'category_id').from('todo_list').
     where('id', req.params.id).
     then((data) => {
-      //console.log(data[0].todo);
       var query = data[0].todo;
       var queryString = query.substr(query.indexOf(' ') + 1);
-      //console.log('DATA ========>>>>>', data);
-
       if (data[0]['category_id'] === 3) {
         client.search({
         term: queryString,
         location: 'Vancouver'
       }).
       then(response => {
-      console.log('YELP API OUTPUT ------->', 'Rating: ', response.jsonBody.businesses[0].rating, 'Price: ', response.jsonBody.businesses[0].price);
         return res.json(response.jsonBody.businesses[0]);
-        console.log('Price: ', data.price, 'Rating: ', data.rating, 'Address', data.location.address1);
-
       }).
       catch(e => {
         console.log(e);
@@ -169,12 +155,12 @@ module.exports = function(knex) {
       } else if (data[0]['category_id'] === 2 || data[0]['category_id'] === 4) {
         walmart.search(queryString).
         then(function(data) {
-        console.log('Title: ', data["items"][0]["name"], 'Price: $', data["items"][0]["salePrice"], 'Category: ', data["items"][0]['categoryPath'], 'Description: ', data["items"][0]['categoryPath']);
+        //console.log('Title: ', data["items"][0]["name"], 'Price: $', data["items"][0]["salePrice"], 'Category: ', data["items"][0]['categoryPath'], 'Description: ', data["items"][0]['categoryPath']);
         return res.json(data["items"][0]);
         });
       } else if (data[0]['category_id'] === 1) {
             MovieDB.searchMovie({ query: queryString }, (err, data) => {
-        console.log(`Review: ${data['results'][0]['vote_average']} Overview: ${data['results'][0]['overview']}`);
+        //console.log(`Review: ${data['results'][0]['vote_average']} Overview: ${data['results'][0]['overview']}`);
       return  res.json(data);
 
     });
@@ -182,66 +168,23 @@ module.exports = function(knex) {
     });
   });
 
-
-// ---------- Walmart API ---------
-
-
-
-// mainRoutes.route("/todo/:id").get((req, res) => {
-//   knex
-//     .select("todo", "category_id")
-//     .from("todo_list")
-//     .where("id", req.params.id)
-//     .then(data => {
-//       walmart.search('Toilet paper').
-//       then(function(data) {
-//         console.log('Title: ', data["items"][0]["name"], 'Price: $', data["items"][0]["salePrice"], 'Category: ', data["items"][0]['categoryPath'], 'Description: ', data["items"][0]['categoryPath']);
-//         return res.json(data["items"][0]);
-//       });
-//     });
-// });
-
-
-
-// ---------Movie API ------------------
-
-  //   mainRoutes.route("/todo/:id").get((req, res) => {
-  //   knex.select('todo', 'category_id').from('todo_list').
-  //   where('id', req.params.id).
-  //   then((data) => {
-
-    //  MovieDB.searchMovie({ query: 'Shrek' }, (err, data) => {
-    //   console.log(`Review: ${data['results'][0]['vote_average']} Overview: ${data['results'][0]['overview']}`);
-    //   return  res.json(data);
-
-    // });
-
-  //   });
-
-  // });
-
-
-
-
-
-
   mainRoutes.route("/todo/:id/update").post((req, res) => {
-    return res.send("it works");
+      // this is where we will update the category
+    knex('todo_list').where({ id:req.params.id }).update({category_id: 1}).then(() => {
+        res.redirect("/");
+      }).catch((err) => {
+        console.log(err);
+        res.sendStatus(500);
+      });
   });
 
-
-
   mainRoutes.route("/logout").post((req, res) => {
-    //console.log('RS', req.session);
-    // res.redirect(300, "/");
     if (req.session.userID) {
       req.session.userID = null;
       return res.redirect('/');
     }
     return res.send("it doesn't work");
   });
-
-
 
   return mainRoutes;
 };

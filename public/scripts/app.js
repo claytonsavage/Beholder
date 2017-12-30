@@ -3,58 +3,56 @@ $(() => {
   //need to add the current user id to the new todo being created
 
    function createTodoElement(value){
-    console.log("THIS IS VALUE we are getting the id of this",value);
-      var str = value.todo;
-      var watchResult = RegExp('watch', 'i').test(str);
-      var bookResult = RegExp('read', 'i').test(str);
-      var restuarantResult = RegExp('eat', 'i').test(str);
-      var productResult = RegExp('buy', 'i').test(str);
+      var str = value.category_id;
       var catVar;
       var apiResult = "hello world";
 
-      if(watchResult === true) {
+      if(str === 1) {
         catVar = "Movie";
         var apiquery = value.todo;
         var apiQueryWithoutCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
-      } else if (bookResult === true) {
+      } else if (str === 2) {
         catVar = "Book";
         var apiquery = value.todo;
         var apiQueryWithoutCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
-      } else if (restuarantResult === true) {
+      } else if (str === 3) {
         catVar = "Restaurant";
          var apiquery = value.todo;
          var apiQueryWithoutCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
-      } else if (productResult === true) {
+      } else if (str === 4) {
         catVar = "Product";
         var apiquery = value.todo;
         var apiQueryWithoutCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
       }
-      //pass apiquery to api based on catVar
-      // start with hardcoded then go from there
-      // cant bring  in api here
-      //have api result show here...
+
       if (catVar === "Book") {
-        apiResult = "This is a great book!";
+        apiResult = "learn more about this book!";
       }
        if (catVar === "Movie") {
-        apiResult = "This is a great movie!";
+        apiResult = "learn more about this movie!";
       }
        if (catVar === "Product") {
-        apiResult = "This is a great product!";
+        apiResult = "learn more about this product!";
       }
        if (catVar === "Restaurant") {
-        apiResult = "This is a great restaurant!";
+        apiResult = "learn more about this restaurant!";
       }
 
     const $h2 = $('<h2>').text(catVar).addClass("category");
     const $header = $('<header>').addClass("todo-header").append($h2);
     const $apiInfo = $('<h3>').text(apiResult).addClass("api-info").append($h2);
     const $content = $('<p>').text(value.todo).addClass("todo-text");
+    const $categorychanger = $('<div>').addClass("toggle-button");
+    const $categoryMovie = $('<div>').text('Movie').addClass("movie-toggle");
+    const $categoryBook = $('<div>').text('Book').addClass("book-toggle");
+    const $categoryPurchase = $('<div>').text('Purchase').addClass("purchase-toggle");
+    const $categoryRestaurant = $('<div>').text('Restaurant').addClass("restaurant-toggle");
     return $('<article>')
       .addClass("todo-box")
+      .attr("todo", value.todo)
       .attr("id", value.id)
       .attr("category", value.category_id)
-      .append($header, $content, $apiInfo);
+      .append($header, $content, $apiInfo, $categorychanger, $categoryMovie, $categoryBook, $categoryPurchase, $categoryRestaurant);
   }
 
    function renderTodos(todos){
@@ -76,17 +74,9 @@ $(() => {
     }).done(function () {
       event.target.reset();
       $('.error').replaceWith('<div class="infoForUser"><div>');
-      // update DOM after hearing back from server
       loadTodos();
     });
   });
-  // $.ajax({
-  //   method: "GET",
-  //   url: "/todo/index"
-  //   data: $(this).serialize()
-  // }).done((todos) => {
-    // for(individual of todos) {
-      // $("<div>").text(individual.todo).appendTo($("body"));
 
   loadTodos = function() {
     $.ajax({
@@ -94,7 +84,6 @@ $(() => {
       method: 'GET',
       dataType: 'JSON',
       success: function (morePostsJSON) {
-       // console.log(morePostsJSON);
         renderTodos(morePostsJSON.reverse());
       }
     });
@@ -108,84 +97,37 @@ $(() => {
     });
   });
 
+  var apisearch = function(id, category) {
+    if (category === '1') {
+      $.ajax ({
+        url: `/todo/${id}`,
+        method: 'GET'
+      }).
+      done((data) => {
+        $('.information-from-api').replaceWith(`<div class="information-about information-from-api">${data.results['0'].title}, ${data.results['0'].overview}</div>`);
+      });
+    } if (category === '4' || category === '2') {
+      $.ajax ({
+        url: `/todo/${id}`,
+        method: 'GET'
+      }).
+      done((data) => {
+        $('.information-from-api').replaceWith(`<div class="information-about information-from-api">${data.name} costs: $${data.salePrice} description: ${data.shortDescription}</div>`);
+      });
+    } if (category === '3') {
+       $.ajax ({
+        url: `/todo/${id}`,
+        method: 'GET'
+      }).
+      done((data) => {
+        $('.information-from-api').replaceWith(`<div class="information-about information-from-api">price: ${data.price} rating: $${data.rating} address: ${data.location.address1}</div>`);
+      });
+    }
+  };
 
-var apisearch = function(id, category) {
-  if (category === '1') {
-    $.ajax ({
-      url: `/todo/${id}`,
-      method: 'GET'
-    }).
-    done((data) => {
-      $('.information-from-api').replaceWith(`<div class="information-about information-from-api">${data.results['0'].title}, ${data.results['0'].overview}</div>`);
-    });
-  } if (category === '4' || category === '2') {
-    $.ajax ({
-      url: `/todo/${id}`,
-      method: 'GET'
-    }).
-    done((data) => {
-      $('.information-from-api').replaceWith(`<div class="information-about information-from-api">${data.name} costs: $${data.salePrice} description: ${data.shortDescription}</div>`);
-    });
-  } if (category === '3') {
-     $.ajax ({
-      url: `/todo/${id}`,
-      method: 'GET'
-    }).
-    done((data) => {
-      $('.information-from-api').replaceWith(`<div class="information-about information-from-api">price: ${data.price} rating: $${data.rating} address: ${data.location.address1}</div>`);
-    });
-  }
-    //Movies
-    // console.log(`Review: ${data['results'][0]['vote_average']} Overview: ${data['results'][0]['overview']}`);
-    // Yelp
-    //console.log('Price: ', data.price, 'Rating: ', data.rating, 'Address', data.location.address1);
-    // Walmart - book and product
-    // console.log('Title: ', data.name, 'Price: $', data.salePrice, 'Category: ', data.categoryPath, 'Description: ', data.categoryPath);
-};
-
-//this is not running
-$('.container').on('click', 'article', function() {
-
-  // we need this data to be unique to the specific todo being created.
-  // make it so this is the specific thing being clicked
-  console.log($(this).attr('id'));
-  console.log($(this).attr('category'));
-  let category = $(this).attr('category');
-  let id = $(this).attr('id');
-  apisearch(id, category);
-});
-
-
-
-// $('.logoutbutton').on('click', function(event) {
-//   event.preventDefault()
-//   $.ajax({
-//     url: '/logout',
-//     method: 'POST',
-//     success: function(){
-
-
-//     }
-//   });
-
-//this is what we want to do
-   // $('#add-todo').on('click', function () {
-
-   //    var task = {
-   //      user_id: req.session.userID,
-   //      todo: req.body.todo,
-   //    };
-
-
-  //  $.ajax({
-  //   method: "POST",
-  //   url: "/todo/create"
-  // })
-  // .done((users) => {
-  //   for(user of users) {
-  //     $("<div>").text(user.todo).appendTo($("todos"));
-  //   }
-  // });
-// });
-
+  $('.container').on('click', 'article', function() {
+    let category = $(this).attr('category');
+    let id = $(this).attr('id');
+    apisearch(id, category);
+  });
 });

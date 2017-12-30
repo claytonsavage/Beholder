@@ -111,3 +111,52 @@ main {
   height: 160px;
   padding: 30px;
 }
+
+.movie-toggle {
+  position: absolute;
+  right: -53px;
+  top: 0px;
+}
+
+.book-toggle {
+  position: absolute;
+  right: -43px;
+  top: 22px;
+}
+
+.purchase-toggle {
+  position: absolute;
+  right: -81px;
+  top: 44px;
+}
+
+.restaurant-toggle {
+  position: absolute;
+  right: -100px;
+  top: 66px;
+}
+
+.movie-toggle:hover {
+  background-color: white;
+  color: black;
+}
+
+.book-toggle:hover {
+  background-color: white;
+  color: black;
+}
+
+.purchase-toggle:hover {
+  background-color: white;
+  color: black;
+}
+
+.restaurant-toggle:hover {
+  background-color: white;
+  color: black;
+}
+
+.selected-cat {
+  background-color: yellow;
+  color: black;
+}
