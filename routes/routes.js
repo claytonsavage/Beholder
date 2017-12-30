@@ -9,11 +9,8 @@ module.exports = function(knex) {
   mainRoutes
     .route("/register")
     .get((req, res) => {
-
-
     })
     .post((req, res) => {
-
     });
 
   mainRoutes
@@ -21,23 +18,15 @@ module.exports = function(knex) {
     .get((req, res) => {
       if (req.session.userID) {
        return res.redirect('/');
-      // que user by email and password from db
-     // if verified => set session; req.session.userID = id (id from db);
     }})
     .post((req, res) => {
       knex.select('name','email','password', 'id').
           from("users").
           where("email", req.body.email).
           then((data) => {
-            // console.log(data);
-            //console.log("1", req.body.password);
-            //console.log("2", data[0].password);
             if (req.body.password === data[0].password) {
-              // set session
               req.session.userID = data[0].id;
-
               return res.redirect('/');
-
             }
             return res.send("wrong password");
           }).
@@ -48,33 +37,20 @@ module.exports = function(knex) {
 
   mainRoutes.route("/").get((req, res) => {
     var loginName = [];
-    //console.log('SESSION ID: ', req.session.userID);
-
     if (req.session.userID) {
-      // const username = { 'key': req.session.userID };
-      // console.log('KONRAD ============>', username['key']);
-      // // console.log('KNEX =====>', knex.select('name').from('users').where(id = username['key']));
-      // console.log('LOOOOK ---------------------', knex('users').whereRaw('id = ?', [1]));
       knex('users').where({ id: req.session.userID }).then(rows => { return rows[0].name; });
-      //console.log('LOGINNNNNNN ===', loginName);
       const useridentification = { key: "TEST" };
       res.render('index', useridentification);
       knex.select('todo').
       from('todo_list').
       where('user_id', req.session.userID).
       then(rows => {
-        //console.log('rows:', rows);
-        // return res.render(req.session.userID[0]);
       }
-      // if user logined => render todos from db
-      // if not , ask user to login in
-  );
-
-} else {
-  //console.log('taking else route');
-  return res.render("index", {key: 'Login To Get Started!'});
-}
-  });
+    );
+  } else {
+    return res.render("index", {key: 'Login To Get Started!'});
+  }
+    });
 
   mainRoutes.route("/user/:userid").get((req, res) => {
     return res.send("it works");
@@ -88,8 +64,6 @@ module.exports = function(knex) {
     return res.send("it works");
   });
 
-
-
   mainRoutes.route("/todo/index").get((req, res) => {
     knex.select('todo', 'id', 'category_id').
     from('todo_list').
@@ -101,7 +75,6 @@ module.exports = function(knex) {
             console.log(err);
           });
   });
-
 
   mainRoutes.route("/todo/create").post((req, res) => {
     if (req.session.userID === undefined || !req.session) {
@@ -155,16 +128,14 @@ module.exports = function(knex) {
       } else if (data[0]['category_id'] === 2 || data[0]['category_id'] === 4) {
         walmart.search(queryString).
         then(function(data) {
-        //console.log('Title: ', data["items"][0]["name"], 'Price: $', data["items"][0]["salePrice"], 'Category: ', data["items"][0]['categoryPath'], 'Description: ', data["items"][0]['categoryPath']);
         return res.json(data["items"][0]);
         });
-      } else if (data[0]['category_id'] === 1) {
-            MovieDB.searchMovie({ query: queryString }, (err, data) => {
-        //console.log(`Review: ${data['results'][0]['vote_average']} Overview: ${data['results'][0]['overview']}`);
-      return  res.json(data);
-
-    });
-      }
+      } else if (data[0]['category_id'] === 1)
+        {
+          MovieDB.searchMovie({ query: queryString }, (err, data) => {
+          return  res.json(data);
+          });
+        }
     });
   });
 
