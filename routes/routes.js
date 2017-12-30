@@ -168,9 +168,32 @@ module.exports = function(knex) {
     });
   });
 
-  mainRoutes.route("/todo/:id/update").post((req, res) => {
-      // this is where we will update the category
+  mainRoutes.route("/todo/:id/update/movie").post((req, res) => {
     knex('todo_list').where({ id:req.params.id }).update({category_id: 1}).then(() => {
+        res.redirect("/");
+      }).catch((err) => {
+        console.log(err);
+        res.sendStatus(500);
+      });
+  });
+  mainRoutes.route("/todo/:id/update/book").post((req, res) => {
+    knex('todo_list').where({ id:req.params.id }).update({category_id: 2}).then(() => {
+        res.redirect("/");
+      }).catch((err) => {
+        console.log(err);
+        res.sendStatus(500);
+      });
+  });
+  mainRoutes.route("/todo/:id/update/restaurant").post((req, res) => {
+    knex('todo_list').where({ id:req.params.id }).update({category_id: 3}).then(() => {
+        res.redirect("/");
+      }).catch((err) => {
+        console.log(err);
+        res.sendStatus(500);
+      });
+  });
+  mainRoutes.route("/todo/:id/update/purchase").post((req, res) => {
+    knex('todo_list').where({ id:req.params.id }).update({category_id: 4}).then(() => {
         res.redirect("/");
       }).catch((err) => {
         console.log(err);
