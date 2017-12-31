@@ -58,6 +58,17 @@
             <button class="logoutbutton" type="submit">Log out</button>
           </form>
 
+          <button id="updatetoggle"> Update </button>
+
+          <form action="/user/update" method="post" id="updateform">
+            <label for="update-username">Username</label>
+            <input id="update-username" name="username">
+              <label for="update-password">Password</label>
+            <input id="update-password" name="password" type="password">
+            <button> Submit </button>
+            <div class="update-error-message"></div>
+          </form>
+
       </div>
 
       <% } else { %>
@@ -71,6 +82,17 @@
             <input id="password" name="password" type="password">
             <button>Log in</button>
             </p>
+          </form>
+          <button id="registertoggle"> Register </button>
+          <form action="/register" method="post" id="registerform">
+            <label for="register-username">Username</label>
+            <input id="register-username" name="username">
+            <label for="register-email">Email</label>
+            <input id="register-email" name="email">
+              <label for="register-password">Password</label>
+            <input id="register-password" name="password" type="password">
+            <button> Submit </button>
+            <div class="reg-error-message"></div>
           </form>
 
            <% } %>

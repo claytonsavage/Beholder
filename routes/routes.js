@@ -11,7 +11,43 @@ module.exports = function(knex) {
     .get((req, res) => {
     })
     .post((req, res) => {
+      if (!req.body.email || !req.body.password) {
+        res.send('username, email and password are required');
+        res.redirect('/');
+        return;
+       }
+       knex('users').where('email', req.body.email).then((rows) => {
+        if (rows.length) {
+          // $('.infoForUser').replaceWith('<div class="error infoForUser" >email is not unique</div>');
+          // return Promise.reject(new Error('email is not unique'));
+          res.send('email not unique');
+        }
+      }).then((Password) => {
+        // insert the new user into the database
+        return knex('users').insert({
+          name: req.body.username,
+          email: req.body.email,
+          password: req.body.password
+        });
+      }).then(() => {
+        // send a response to the user telling them that their account was created
+        // req.flash('messages', 'account successfully created');
+      // $('.infoForUser').replaceWith('<div class="error infoForUser" >account successfully created</div>');
+        res.redirect('/');
+      }).catch((err) => {
+        console.log(err);
+        req.flash('there was a problem creating your account');
+        res.redirect('/');
+      });
+
     });
+
+
+
+
+
+
+
 
   mainRoutes
     .route("/login")
@@ -58,8 +94,23 @@ module.exports = function(knex) {
   });
 
   mainRoutes.route("/user/update").post((req, res) => {
-    return res.send("it works");
+    console.log('id', req.session.userID);
+    console.log("name", req.body.username);
+    console.log("pass", req.body.password);
+      knex('users').
+      update({
+          name: req.body.username,
+          password: req.body.password
+      }).
+      where({'id' : req.session.userID}).
+      then(() => {
+        return res.redirect('/');
+      }).
+      catch((err) => {
+        return res.send(500);
+      });
   });
+
 
   mainRoutes.route("/todo/new").get((req, res) => {
     return res.send("it works");
@@ -113,14 +164,7 @@ module.exports = function(knex) {
     where('id', req.params.id).
     then((data) => {
       var query = data[0].todo;
-      // this needs to work for generic
-      var filterwatch = query.replace(/watch/i, '');
-      var filterbuy = filterwatch.replace(/buy/i, '');
-      var filtereat = filterbuy.replace(/eat/i, '');
-      var filterread = filtereat.replace(/read/i, '');
-
-      var queryString = filterread;
-      //query.substr(query.indexOf(' ') + 1);
+      var queryString = query.substr(query.indexOf(' ') + 1);
       if (data[0]['category_id'] === 3) {
         client.search({
         term: queryString,

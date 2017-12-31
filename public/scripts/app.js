@@ -190,8 +190,8 @@ $(() => {
       success: function (moreTodos) {
         loadTodos();
       }
-      })
+      });
   });
 
 
-});
+
