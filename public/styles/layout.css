@@ -176,6 +176,7 @@ main {
   background-color: #051119;
   margin-top: -9px;
   padding-top: 15px;
+  padding-bottom: 100vh;
 }
 
 .deleteIt {
