@@ -11,36 +11,66 @@ module.exports = function(knex) {
     .get((req, res) => {
     })
     .post((req, res) => {
+
+
       if (!req.body.email || !req.body.password) {
-        res.send('username, email and password are required');
-        res.redirect('/');
-        return;
+        return res.send(403, '<a href="/">email and password are required</a>')
        }
-       knex('users').where('email', req.body.email).then((rows) => {
+
+
+       knex('users').where('email', req.body.email).
+
+       then((rows) => {
         if (rows.length) {
-          // $('.infoForUser').replaceWith('<div class="error infoForUser" >email is not unique</div>');
+          return res.send(403, '<a href="/">E-mail not unique</a>');
           // return Promise.reject(new Error('email is not unique'));
-          res.send('email not unique');
+          // res.send('email not unique');
         }
-      }).then((Password) => {
-        // insert the new user into the database
-        return knex('users').insert({
-          name: req.body.username,
-          email: req.body.email,
-          password: req.body.password
-        });
-      }).then(() => {
+        else  {
+         console.log("INSERT");
+
+
+         knex('users').insert({
+           name: req.body.username,
+            email: req.body.email,
+            password: req.body.password
+          }).
+       then(() => {
         // send a response to the user telling them that their account was created
         // req.flash('messages', 'account successfully created');
       // $('.infoForUser').replaceWith('<div class="error infoForUser" >account successfully created</div>');
-        res.redirect('/');
-      }).catch((err) => {
+        return res.redirect('/');
+      }).
+       catch((err) => {
         console.log(err);
-        req.flash('there was a problem creating your account');
-        res.redirect('/');
+        return res.redirect('/');
       });
 
-    });
+      }
+
+     });
+  });
+
+
+
+        // insert the new user into the database
+      //   console.log("INSERT");
+      //   knex('users').insert({
+      //     name: req.body.username,
+      //     email: req.body.email,
+      //     password: req.body.password
+      //   });
+      // }).then(() => {
+      //   // send a response to the user telling them that their account was created
+      //   // req.flash('messages', 'account successfully created');
+      // // $('.infoForUser').replaceWith('<div class="error infoForUser" >account successfully created</div>');
+      //   return res.redirect('/');
+      // }).catch((err) => {
+      //   console.log(err);
+      //   return res.redirect('/');
+      // });
+
+    // );
 
 
 
