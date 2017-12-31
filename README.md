@@ -1,4 +1,6 @@
-# Node Skeleton
+# BEHOLDER
+
+Beholder is a smart, auto-categorizing todo list application. Users simply have to add their todo and automatically the todo gets categorized into one of the following categories: Movies (to watch), Restaurants (to eat), Books (to read) & Products (to buy). Beholder then queries various APIs (Walmart, Yelp or MovieDB) to provide the user with further information!
 
 ## Project Setup
 
@@ -25,5 +27,30 @@
 
 ## Dependencies
 
-- Node 5.10.x or above
-- NPM 3.8.x or above
+* Node 5.10.x or above
+* NPM 3.8.x or above
+* bcrypt: ^1.0.3,
+* body-parser": ^1.15.2,
+* connect-flash": ^0.1.1,
+* cookie-parser": ^1.4.3,
+* cookie-session": ^2.0.0-beta.3,
+* dotenv": ^2.0.0,
+* ejs": ^2.4.1,
+* express": ^4.13.4,
+* goodreads": ^0.1.0,
+* google-books-search": ^0.3.1,
+* googleplaces": ^0.6.1,
+* jquery": ^3.2.1,
+* knex": ^0.11.7,
+* knex-logger": ^0.1.0,
+* morgan": ^1.7.0,
+* moviedb": ^0.2.10,
+* node-sass-middleware": ^0.9.8,
+* pg": ^6.0.2,
+* walmart": 0.0.4,
+* yelp-fusion": ^2.0.3
+
+## dev Dependencies
+    
+* nodemon: ^1.9.2,
+* sqlite3: ^3.1.4
