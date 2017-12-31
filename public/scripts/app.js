@@ -1,12 +1,14 @@
 $(() => {
 
-  //need to add the current user id to the new todo being created
-
    function createTodoElement(value){
       var str = value.category_id;
       var catVar;
       var apiResult;
-
+      let completed = value.completed;
+      let doneClass = "notdone"
+      if (value.completed === true) {
+        doneClass = "redlike";
+      }
       if(str === 1) {
         catVar = "Movie";
         var apiquery = value.todo;
@@ -49,12 +51,14 @@ $(() => {
     const $categoryBook = $('<div>').text('Book').addClass("book-toggle");
     const $categoryPurchase = $('<div>').text('Purchase').addClass("purchase-toggle");
     const $categoryRestaurant = $('<div>').text('Restaurant').addClass("restaurant-toggle");
+    const $deleteIt = $('<div>').text('x').addClass("deleteIt");
     return $('<article>')
-      .addClass("todo-box")
+      .addClass(`todo-box ${doneClass}`)
       .attr("todo", value.todo)
       .attr("id", value.id)
       .attr("category", value.category_id)
-      .append($header, $content, $apiInfo, $categorychanger, $categoryMovie, $categoryBook, $categoryPurchase, $categoryRestaurant, $h2);
+      .attr("completed", value.completed)
+      .append($header, $content, $apiInfo, $categorychanger, $categoryMovie, $categoryBook, $categoryPurchase, $categoryRestaurant, $h2, $deleteIt);
   }
 
    function renderTodos(todos){
@@ -141,6 +145,8 @@ $(() => {
     apisearch(id, category);
   });
 
+
+
     $('body').on('click', '.movie-toggle', function(event) {
     $(this).closest('.movie-toggle').toggleClass("selected-cat");
     let currentId = $(this).closest('article').attr("id");
@@ -191,6 +197,17 @@ $(() => {
         loadTodos();
       }
       });
+  });
+
+  $('body').on('click', '.deleteIt', function(event) {
+    let currentId = $(this).closest('article').attr("id");
+    $.ajax({
+      url: `/todo/${currentId}/delete`,
+      method: 'POST',
+      success: function (moreTodos) {
+        loadTodos();
+      }
+    })
   });
 
 

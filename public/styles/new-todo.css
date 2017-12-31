@@ -29,6 +29,7 @@
 textarea:focus, input:focus{
     outline: none;
     background-color: #051111;
+    color: white;
 }
 
  .submit-todo {

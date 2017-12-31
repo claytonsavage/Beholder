@@ -51,34 +51,6 @@ module.exports = function(knex) {
      });
   });
 
-
-
-        // insert the new user into the database
-      //   console.log("INSERT");
-      //   knex('users').insert({
-      //     name: req.body.username,
-      //     email: req.body.email,
-      //     password: req.body.password
-      //   });
-      // }).then(() => {
-      //   // send a response to the user telling them that their account was created
-      //   // req.flash('messages', 'account successfully created');
-      // // $('.infoForUser').replaceWith('<div class="error infoForUser" >account successfully created</div>');
-      //   return res.redirect('/');
-      // }).catch((err) => {
-      //   console.log(err);
-      //   return res.redirect('/');
-      // });
-
-    // );
-
-
-
-
-
-
-
-
   mainRoutes
     .route("/login")
     .get((req, res) => {
@@ -141,13 +113,39 @@ module.exports = function(knex) {
       });
   });
 
+   mainRoutes.route("/todo/:id/update/completed").post((req, res) => {
+    knex('todo_list').where({ id: req.params.id}).update({completed: true}).then(() => {
+        res.redirect("/");
+      }).catch((err) => {
+        console.log(err);
+        res.sendStatus(500);
+      });
+  });
+
+   mainRoutes.route("/todo/:id/update/incomplete").post((req, res) => {
+    knex('todo_list').where({ id: req.params.id}).update({completed: false}).then(() => {
+        res.redirect("/");
+      }).catch((err) => {
+        console.log(err);
+        res.sendStatus(500);
+      });
+  });
+
+  mainRoutes.route("/todo/:id/delete").post((req, res) => {
+    knex('todo_list').where({ id: req.params.id}).del().then(() => {
+        res.redirect("/");
+      }).catch((err) => {
+        console.log(err);
+        res.sendStatus(500);
+      });
+  });
 
   mainRoutes.route("/todo/new").get((req, res) => {
     return res.send("it works");
   });
 
   mainRoutes.route("/todo/index").get((req, res) => {
-    knex.select('todo', 'id', 'category_id').
+    knex.select('todo', 'id', 'category_id', 'completed').
     from('todo_list').
     where('user_id', req.session.userID).
     then(rows => {
@@ -180,7 +178,7 @@ module.exports = function(knex) {
         catVar = 4;
       }
 
-      knex('todo_list').insert({'todo': req.body.todo, 'user_id': req.session.userID, 'category_id': catVar}).then(() => {
+      knex('todo_list').insert({'todo': req.body.todo, 'user_id': req.session.userID, 'category_id': catVar, 'completed': false}).then(() => {
         res.redirect("/");
       }).catch((err) => {
         console.log(err);

@@ -20,7 +20,7 @@
 .toggleButton {
     color: pink;
     position: relative;
-    left: 1070px;
+    left: 1090px;
     top: -34px;
     font-size: 80px;
 }
@@ -55,7 +55,8 @@ top: 12px;
     font-size: 16px;
     position: absolute;
     right: 36px;
-    top: 25px;
+    top: 9px;
+    width: 87px;
 }
 
 .username {
@@ -66,9 +67,30 @@ top: 12px;
     top: 20px;
 }
 
+.update {
+    font-size: 16px;
+    position: absolute;
+    right: 600px;
+    top: 150px;
+    width: 250px;
+    color: white;
+    background-color: rgba(118, 6, 40, 0.9);
+    height: 200px;
+    padding: 20px;
+    box-shadow:10px 10px 20px black;
+}
 
+.hiddenupdate {
+    display: hidden;
+}
 
-
+#updatetoggle {
+    font-size: 16px;
+    position: absolute;
+    right: 36px;
+    top: 42px;
+    width: 87px;
+}
 
 
 
