@@ -7,7 +7,7 @@ exports.seed = function(knex, Promise) {
         knex('categories').insert({id: 3, name: 'Restuarants'}),
         knex('categories').insert({id: 4, name: 'Purchases'})
       ]).then(function(){
-        return knex.raw(`ALTER SEQUENCE categories_id_seq RESTART WITH 4`)
-      });;
+        return knex.raw(`ALTER SEQUENCE categories_id_seq RESTART WITH 4`);
+      });
     });
 };

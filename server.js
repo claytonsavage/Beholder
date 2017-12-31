@@ -34,7 +34,7 @@ app.use(morgan('dev'));
 app.use(knexLogger(knex));
 app.use(session({
   name: 'session',
-  keys: ['hello'],
+  keys: ['hello']
 }));
 app.use(flash());
 app.use(bodyParser.urlencoded({ extended: true }));

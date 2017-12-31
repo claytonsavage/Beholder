@@ -8,70 +8,61 @@ const walmart = require('walmart')(getSecrets.walmart);
 module.exports = function(knex) {
   mainRoutes
     .route("/register")
-    .get((req, res) => {
-    })
     .post((req, res) => {
 
 
       if (!req.body.email || !req.body.password) {
-        return res.send(403, '<a href="/">email and password are required</a>')
-       }
-
-
-       knex('users').where('email', req.body.email).
-
-       then((rows) => {
-        if (rows.length) {
-          return res.send(403, '<a href="/">E-mail not unique</a>');
-          // return Promise.reject(new Error('email is not unique'));
-          // res.send('email not unique');
-        }
-        else  {
-         console.log("INSERT");
-
-
-         knex('users').insert({
-           name: req.body.username,
-            email: req.body.email,
-            password: req.body.password
-          }).
-       then(() => {
-        // send a response to the user telling them that their account was created
-        // req.flash('messages', 'account successfully created');
-      // $('.infoForUser').replaceWith('<div class="error infoForUser" >account successfully created</div>');
-        return res.redirect('/');
-      }).
-       catch((err) => {
-        console.log(err);
-        return res.redirect('/');
-      });
-
+        return res.send(403, '<a href="/">email and password are required</a>');
       }
 
-     });
-  });
+
+      knex('users').where('email', req.body.email).
+
+        then((rows) => {
+          if (rows.length) {
+            return res.send(403, '<a href="/">E-mail not unique</a>');
+          } else  {
+            console.log("INSERT");
+
+
+            knex('users').insert({
+              name: req.body.username,
+              email: req.body.email,
+              password: req.body.password
+            }).
+              then(() => {
+                return res.redirect('/');
+              }).
+              catch((err) => {
+                console.log(err);
+                return res.redirect('/');
+              });
+          }
+        });
+    });
 
   mainRoutes
     .route("/login")
     .get((req, res) => {
       if (req.session.userID) {
-       return res.redirect('/');
-    }})
+        return res.redirect('/');
+      }
+    })
     .post((req, res) => {
-      knex.select('name','email','password', 'id').
-          from("users").
-          where("email", req.body.email).
-          then((data) => {
-            if (req.body.password === data[0].password) {
-              req.session.userID = data[0].id;
-              req.session.username = data[0].name;
-              return res.redirect('/');
-            }
-            return res.send("wrong password");
-          }).
-          catch((err) => {
-            console.log(err);
-          });
+      knex.select('name', 'email', 'password', 'id').
+        from("users").
+        where("email", req.body.email).
+        then((data) => {
+          if (req.body.password === data[0].password) {
+            req.session.userID = data[0].id;
+            req.session.username = data[0].name;
+            return res.redirect('/');
+          }
+          return res.send("wrong password");
+        }).
+        catch((err) => {
+          console.log(err);
+        });
     });
 
   mainRoutes.route("/").get((req, res) => {
@@ -81,15 +72,12 @@ module.exports = function(knex) {
       const useridentification = {userID: req.session.userID, username: req.session.username};
       res.render('index', useridentification);
       knex.select('todo').
-      from('todo_list').
-      where('user_id', req.session.userID).
-      then(rows => {
-      }
-    );
-  } else {
-    return res.render("index", {userID: req.session.userID, username: req.session.username});
-  }
-    });
+        from('todo_list').
+        where('user_id', req.session.userID);
+    } else {
+      return res.render("index", {userID: req.session.userID, username: req.session.username});
+    }
+  });
 
   mainRoutes.route("/user/:userid").get((req, res) => {
     return res.send("it works");
@@ -99,12 +87,12 @@ module.exports = function(knex) {
     console.log('id', req.session.userID);
     console.log("name", req.body.username);
     console.log("pass", req.body.password);
-      knex('users').
+    knex('users').
       update({
-          name: req.body.username,
-          password: req.body.password
+        name: req.body.username,
+        password: req.body.password
       }).
-      where({'id' : req.session.userID}).
+      where({'id': req.session.userID}).
       then(() => {
         return res.redirect('/');
       }).
@@ -113,31 +101,31 @@ module.exports = function(knex) {
       });
   });
 
-   mainRoutes.route("/todo/:id/update/completed").post((req, res) => {
+  mainRoutes.route("/todo/:id/update/completed").post((req, res) => {
     knex('todo_list').where({ id: req.params.id}).update({completed: true}).then(() => {
-        res.redirect("/");
-      }).catch((err) => {
-        console.log(err);
-        res.sendStatus(500);
-      });
+      res.redirect("/");
+    }).catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    });
   });
 
-   mainRoutes.route("/todo/:id/update/incomplete").post((req, res) => {
+  mainRoutes.route("/todo/:id/update/incomplete").post((req, res) => {
     knex('todo_list').where({ id: req.params.id}).update({completed: false}).then(() => {
-        res.redirect("/");
-      }).catch((err) => {
-        console.log(err);
-        res.sendStatus(500);
-      });
+      res.redirect("/");
+    }).catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    });
   });
 
   mainRoutes.route("/todo/:id/delete").post((req, res) => {
     knex('todo_list').where({ id: req.params.id}).del().then(() => {
-        res.redirect("/");
-      }).catch((err) => {
-        console.log(err);
-        res.sendStatus(500);
-      });
+      res.redirect("/");
+    }).catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    });
   });
 
   mainRoutes.route("/todo/new").get((req, res) => {
@@ -146,14 +134,14 @@ module.exports = function(knex) {
 
   mainRoutes.route("/todo/index").get((req, res) => {
     knex.select('todo', 'id', 'category_id', 'completed').
-    from('todo_list').
-    where('user_id', req.session.userID).
-    then(rows => {
-      return res.send(rows);
-    }).
-     catch((err) => {
-            console.log(err);
-          });
+      from('todo_list').
+      where('user_id', req.session.userID).
+      then(rows => {
+        return res.send(rows);
+      }).
+      catch((err) => {
+        console.log(err);
+      });
   });
 
   mainRoutes.route("/todo/create").post((req, res) => {
@@ -177,82 +165,81 @@ module.exports = function(knex) {
         catVar = 4;
       }
 
-    if (req.session.userID) {
-      knex('todo_list').insert({'todo': req.body.todo, 'user_id': req.session.userID, 'category_id': catVar, 'completed': false}).then(() => {
-        res.redirect("/");
-      }).catch((err) => {
-        console.log(err);
-        res.sendStatus(500);
-      });
-    } else {
-      return res.redirect("/");
-    }
+      if (req.session.userID) {
+        knex('todo_list').insert({'todo': req.body.todo, 'user_id': req.session.userID, 'category_id': catVar, 'completed': false}).then(() => {
+          res.redirect("/");
+        }).catch((err) => {
+          console.log(err);
+          res.sendStatus(500);
+        });
+      } else {
+        return res.redirect("/");
+      }
     }
   });
 
   mainRoutes.route("/todo/:id").get((req, res) => {
     knex.select('todo', 'category_id').from('todo_list').
-    where('id', req.params.id).
-    then((data) => {
-      var query = data[0].todo;
-      var queryString = query.substr(query.indexOf(' ') + 1);
-      if (data[0]['category_id'] === 3) {
-        client.search({
-        term: queryString,
-        location: 'Vancouver'
-      }).
-      then(response => {
-        return res.json(response.jsonBody.businesses[0]);
-      }).
-      catch(e => {
-        console.log(e);
-        return res.send(500);
-      });
-      } else if (data[0]['category_id'] === 2 || data[0]['category_id'] === 4) {
-        walmart.search(queryString).
-        then(function(data) {
-        return res.json(data["items"][0]);
-        });
-      } else if (data[0]['category_id'] === 1)
-        {
+      where('id', req.params.id).
+      then((data) => {
+        var query = data[0].todo;
+        var queryString = query.substr(query.indexOf(' ') + 1);
+        if (data[0]['category_id'] === 3) {
+          client.search({
+            term: queryString,
+            location: 'Vancouver'
+          }).
+            then(response => {
+              return res.json(response.jsonBody.businesses[0]);
+            }).
+            catch(e => {
+              console.log(e);
+              return res.send(500);
+            });
+        } else if (data[0]['category_id'] === 2 || data[0]['category_id'] === 4) {
+          walmart.search(queryString).
+            then(function(data) {
+              return res.json(data["items"][0]);
+            });
+        } else if (data[0]['category_id'] === 1) {
           MovieDB.searchMovie({ query: queryString }, (err, data) => {
-          return  res.json(data);
+            return  res.json(data);
           });
         }
-    });
+      });
   });
 
   mainRoutes.route("/todo/:id/update/movie").post((req, res) => {
-    knex('todo_list').where({ id:req.params.id }).update({category_id: 1}).then(() => {
-        res.redirect("/");
-      }).catch((err) => {
-        console.log(err);
-        res.sendStatus(500);
-      });
+    knex('todo_list').where({ id: req.params.id }).update({category_id: 1}).then(() => {
+      res.redirect("/");
+    }).catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    });
   });
   mainRoutes.route("/todo/:id/update/book").post((req, res) => {
-    knex('todo_list').where({ id:req.params.id }).update({category_id: 2}).then(() => {
-        res.redirect("/");
-      }).catch((err) => {
-        console.log(err);
-        res.sendStatus(500);
-      });
+    knex('todo_list').where({ id: req.params.id }).update({category_id: 2}).then(() => {
+      res.redirect("/");
+    }).catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    });
   });
   mainRoutes.route("/todo/:id/update/restaurant").post((req, res) => {
-    knex('todo_list').where({ id:req.params.id }).update({category_id: 3}).then(() => {
-        res.redirect("/");
-      }).catch((err) => {
-        console.log(err);
-        res.sendStatus(500);
-      });
+    knex('todo_list').where({ id: req.params.id }).update({category_id: 3}).then(() => {
+      res.redirect("/");
+    }).catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    });
   });
   mainRoutes.route("/todo/:id/update/purchase").post((req, res) => {
-    knex('todo_list').where({ id:req.params.id }).update({category_id: 4}).then(() => {
-        res.redirect("/");
-      }).catch((err) => {
-        console.log(err);
-        res.sendStatus(500);
-      });
+    knex('todo_list').where({ id: req.params.id }).update({category_id: 4}).then(() => {
+      res.redirect("/");
+    }).catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    });
   });
 
   mainRoutes.route("/logout").post((req, res) => {

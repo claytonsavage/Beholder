@@ -1,46 +1,49 @@
 $(() => {
 
-   function createTodoElement(value){
-      var str = value.category_id;
-      var catVar;
-      var apiResult;
-      let completed = value.completed;
-      let doneClass = "notdone"
-      if (value.completed === true) {
-        doneClass = "redlike";
-      }
-      if(str === 1) {
-        catVar = "Movie";
-        var apiquery = value.todo;
-        var apiQueryWithoutCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
-      } else if (str === 2) {
-        catVar = "Book";
-        var apiquery = value.todo;
-        var apiQueryWithoutCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
-      } else if (str === 3) {
-        catVar = "Restaurant";
-         var apiquery = value.todo;
-         var apiQueryWithoutCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
-      } else if (str === 4) {
-        catVar = "Product";
-        var apiquery = value.todo;
-        var apiQueryWithoutCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
-      } else {
-        let apiQueryWithoutCategory = value.todo;
-      }
+  function createTodoElement(value){
+    var str = value.category_id;
+    var catVar;
+    var apiResult;
+    let completed = value.completed;
+    let doneClass = "notdone";
+    if (value.completed === true) {
+      doneClass = "redlike";
+    }
+    let apiquery;
+    let apiQueryWithoutCategory;
 
-      if (catVar === "Book") {
-        apiResult = "learn more about this book!";
-      }
-       if (catVar === "Movie") {
-        apiResult = "learn more about this movie!";
-      }
-       if (catVar === "Product") {
-        apiResult = "learn more about this product!";
-      }
-       if (catVar === "Restaurant") {
-        apiResult = "learn more about this restaurant!";
-      }
+    if(str === 1) {
+      catVar = "Movie";
+      apiquery = value.todo;
+      apiQueryWithoutCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
+    } else if (str === 2) {
+      catVar = "Book";
+      apiquery = value.todo;
+      apiQueryWithoutCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
+    } else if (str === 3) {
+      catVar = "Restaurant";
+      apiquery = value.todo;
+      apiQueryWithoutCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
+    } else if (str === 4) {
+      catVar = "Product";
+      apiquery = value.todo;
+      apiQueryWithoutCategory = apiquery.substr(apiquery.indexOf(' ') + 1);
+    } else {
+      apiQueryWithoutCategory = value.todo;
+    }
+
+    if (catVar === "Book") {
+      apiResult = "learn more about this book!";
+    }
+    if (catVar === "Movie") {
+      apiResult = "learn more about this movie!";
+    }
+    if (catVar === "Product") {
+      apiResult = "learn more about this product!";
+    }
+    if (catVar === "Restaurant") {
+      apiResult = "learn more about this restaurant!";
+    }
 
     const $h2 = $('<h2>').text(catVar).addClass("category");
     const $header = $('<header>').addClass("todo-header");
@@ -61,12 +64,12 @@ $(() => {
       .append($header, $content, $apiInfo, $categorychanger, $categoryMovie, $categoryBook, $categoryPurchase, $categoryRestaurant, $h2, $deleteIt);
   }
 
-   function renderTodos(todos){
+  function renderTodos(todos){
     $('#todo-container').empty().append(todos.map(createdTodo => createTodoElement(createdTodo)));
   }
 
   $('#todoform').on('submit', function(event) {
-    event.preventDefault()
+    event.preventDefault();
     const formText = ($('.textarea-new-todo').val());
     const trimText = formText.trim();
     if (!trimText) {
@@ -105,37 +108,37 @@ $(() => {
 
   var apisearch = function(id, category) {
     if (category === '1') {
-      $.ajax ({
+      $.ajax({
         url: `/todo/${id}`,
         method: 'GET'
       }).
-      done((data) => {
-        $('.information-from-api').replaceWith(`<div class="information-about information-from-api">${data.results['0'].title}, ${data.results['0'].overview}</div>`);
-      });
+        done((data) => {
+          $('.information-from-api').replaceWith(`<div class="information-about information-from-api">${data.results['0'].title}, ${data.results['0'].overview}</div>`);
+        });
     } if (category === '4') {
-      $.ajax ({
+      $.ajax({
         url: `/todo/${id}`,
         method: 'GET'
       }).
-      done((data) => {
-        $('.information-from-api').replaceWith(`<div class="information-about information-from-api">${data.name} costs: $${data.salePrice} description: ${data.shortDescription}</div>`);
-      });
+        done((data) => {
+          $('.information-from-api').replaceWith(`<div class="information-about information-from-api">${data.name} costs: $${data.salePrice} description: ${data.shortDescription}</div>`);
+        });
     } if (category === '2') {
-      $.ajax ({
+      $.ajax({
         url: `/todo/${id}`,
         method: 'GET'
       }).
-      done((data) => {
-        $('.information-from-api').replaceWith(`<div class="information-about information-from-api">${data.name} - Book Description: ${data.shortDescription}</div>`);
-      });
+        done((data) => {
+          $('.information-from-api').replaceWith(`<div class="information-about information-from-api">${data.name} - Book Description: ${data.shortDescription}</div>`);
+        });
     } if (category === '3') {
-       $.ajax ({
+      $.ajax({
         url: `/todo/${id}`,
         method: 'GET'
       }).
-      done((data) => {
-        $('.information-from-api').replaceWith(`<div class="information-about information-from-api">price: ${data.price} rating: $${data.rating} address: ${data.location.address1}</div>`);
-      });
+        done((data) => {
+          $('.information-from-api').replaceWith(`<div class="information-about information-from-api">price: ${data.price} rating: $${data.rating} address: ${data.location.address1}</div>`);
+        });
     }
   };
 
@@ -147,7 +150,7 @@ $(() => {
 
 
 
-    $('body').on('click', '.movie-toggle', function(event) {
+  $('body').on('click', '.movie-toggle', function(event) {
     $(this).closest('.movie-toggle').toggleClass("selected-cat");
     let currentId = $(this).closest('article').attr("id");
     $(this).closest('article').children('h2').text('Movie');
@@ -157,13 +160,13 @@ $(() => {
       success: function(moreTodos) {
         loadTodos();
       }
-    })
+    });
   });
 
   $('body').on('click', '.book-toggle', function(event) {
     $(this).closest('.movie-toggle').toggleClass("selected-cat");
     let currentId = $(this).closest('article').attr("id");
-    $(this).closest('article').children('h2').text('Book')
+    $(this).closest('article').children('h2').text('Book');
     $.ajax({
       url: `/todo/${currentId}/update/book`,
       method: 'POST',
@@ -176,27 +179,27 @@ $(() => {
   $('body').on('click', '.restaurant-toggle', function(event) {
     $(this).closest('.movie-toggle').toggleClass("selected-cat");
     let currentId = $(this).closest('article').attr("id");
-    $(this).closest('article').children('h2').text('Restaurant')
+    $(this).closest('article').children('h2').text('Restaurant');
     $.ajax({
       url: `/todo/${currentId}/update/restaurant`,
       method: 'POST',
       success: function (moreTodos) {
         loadTodos();
       }
-    })
+    });
   });
 
   $('body').on('click', '.purchase-toggle', function(event) {
     $(this).closest('.movie-toggle').toggleClass("selected-cat");
     let currentId = $(this).closest('article').attr("id");
-    $(this).closest('article').children('h2').text('Product')
-     $.ajax({
+    $(this).closest('article').children('h2').text('Product');
+    $.ajax({
       url: `/todo/${currentId}/update/purchase`,
       method: 'POST',
       success: function (moreTodos) {
         loadTodos();
       }
-      });
+    });
   });
 
   $('body').on('click', '.deleteIt', function(event) {
@@ -207,7 +210,7 @@ $(() => {
       success: function (moreTodos) {
         loadTodos();
       }
-    })
+    });
   });
 
 
