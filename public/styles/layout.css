@@ -31,6 +31,7 @@ main {
   padding: 280px;
   padding-top: 82px;
   padding-bottom: 90px;
+  left: 160px;
 }
 
 .todo-box {
@@ -40,6 +41,9 @@ main {
   position: relative;
   color: white;
   opacity: 0.8;
+  width: 800px;
+  padding-right: 200px;
+  z-index: 0;
 }
 
 .category {
@@ -55,6 +59,7 @@ main {
   padding-top: 35px;
   width: 200px;
   text-align: center;
+  font-size: 20px;
 }
 
 .center-me {
@@ -104,12 +109,15 @@ main {
 
 .information-about {
   position: fixed;
-  font-size: 20px;
+  font-size: 1vw;
   color: white;
-  bottom: 200px;
+  top: 60px;
+  width: 330px;
   background-color: black;
-  height: 160px;
   padding: 30px;
+  overflow: scroll;
+  height: 100%;
+  z-index: -2;
 }
 
 .movie-toggle {
@@ -159,4 +167,16 @@ main {
 .selected-cat {
   background-color: yellow;
   color: black;
+}
+
+.container {
+  width: 500px;
+  position: absolute;
+  left: 280px;
+}
+
+.todo-container-class {
+  background-color: #051119;
+  margin-top: -9px;
+  padding-top: 15px;
 }

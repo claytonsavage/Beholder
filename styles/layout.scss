@@ -20,6 +20,7 @@ body {
   color: #244751;
   background-color: #051119;
   font-family: 'Roboto Condensed', sans-serif;
+
 }
 
 /*
@@ -31,6 +32,7 @@ body {
    padding: 280px;
    padding-top: 82px;
    padding-bottom: 90px;
+   left: 160px;
    //background-color: rgba(100,200,200,0.1);
 
  }
@@ -38,11 +40,13 @@ body {
  .todo-box {
   border: 2px solid darkgrey;
   margin: 6px;
-  //background-color: darkgrey;
   padding: 6px;
   position: relative;
   color: white;
   opacity: 0.8;
+  width: 800px;
+  padding-right: 200px;
+  z-index: 0;
  }
 
 .category {
@@ -58,6 +62,7 @@ body {
   padding-top: 35px;
   width: 200px;
   text-align: center;
+  font-size: 20px;
  }
 
 .center-me {
@@ -107,12 +112,15 @@ body {
 
 .information-about {
   position: fixed;
-  font-size: 20px;
+  font-size: 1vw;
   color: white;
-  bottom: 200px;
+  top: 60px;
+  width: 330px;
   background-color: black;
-  height: 160px;
   padding: 30px;
+  overflow: scroll;
+  height: 100%;
+  z-index: -2;
 }
 
 .movie-toggle {
@@ -156,4 +164,16 @@ color: black;
 .selected-cat {
 background-color: yellow;
 color: black;
+}
+
+.container {
+  width: 500px;
+  position: absolute;
+  left: 280px;
+}
+
+.todo-container-class {
+  background-color: #051119;
+  margin-top: -9px;
+  padding-top: 15px;
 }

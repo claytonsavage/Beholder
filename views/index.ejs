@@ -10,10 +10,15 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
 
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+
     <!-- internal style sheets -->
     <link rel="stylesheet" href="/styles/layout.css">
     <link rel="stylesheet" href="/styles/nav.css">
     <link rel="stylesheet" href="/styles/new-todo.css">
+    <link rel="stylesheet" href="/styles/scroll.css">
+
 
     <!-- scripts -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
@@ -21,8 +26,8 @@
     <script type="text/javascript" src="/scripts/checkoff-todo.js"></script>
   </head>
 
-  <body>
-
+  <body class="scrollbar force-overflow style-15">
+    <div id="wrapper">
     <main class="container center-me">
       <div class="wrapper">
         <section class="new-todo">
@@ -100,4 +105,5 @@
         </div>
     </nav>
   </body>
+  </div>
 </html>
