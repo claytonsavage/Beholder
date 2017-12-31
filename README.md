@@ -8,7 +8,7 @@ Beholder then queries various APIs (Walmart, Yelp & MovieDB) to provide the user
 
 1. Create your own empty repo on GitHub
 2. Clone this repository (do not fork)
-  - Suggestion: When cloning, specify a different folder name that is relevant to your project
+  - Suggestion: When cloning, specify a different folder name that is relevant to Beholder.
 3. Remove the git remote: `git remote rm origin`
 4. Add a remote for your origin: `git remote add origin <your github repo URL>`
 5. Push to the new origin: `git push -u origin master`
