@@ -25,6 +25,15 @@ Beholder is a smart, auto-categorizing todo list application. Users simply have 
 7. Run the server: `npm run local`
 8. Visit `http://localhost:8080/`
 
+## Screenshots
+
+![Alt text](https://github.com/claytonsavage/Beholder/blob/master/Beholder%20Screenshots/index.png "Beholder Homepage")
+![Alt text](https://github.com/claytonsavage/Beholder/blob/master/Beholder%20Screenshots/Register.png "Registration Page")
+![Alt text](https://github.com/claytonsavage/Beholder/blob/master/Beholder%20Screenshots/Todolist.png "Todo List")
+![Alt text](https://github.com/claytonsavage/Beholder/blob/master/Beholder%20Screenshots/API%20Restuarant.png "Yelp -Restuarant query")
+![Alt text](https://github.com/claytonsavage/Beholder/blob/master/Beholder%20Screenshots/API%20Movie%20query.png "Movie API query")
+
+
 ## Dependencies
 
 * Node 5.10.x or above
