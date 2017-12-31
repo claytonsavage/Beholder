@@ -27,57 +27,17 @@ const walmart = require('walmart')(getSecrets.walmart);
 const books = require('google-books-search');
 //development testing
 const userInput = process.argv[2];
-//purchases
-// walmart.search(removeCategory).then(function(item) {
-//   console.log(item['items'][0]['name'], item['items'][0]['salePrice']);
-// });
-//books
-// books.search('Professional JavaScript for Web Developers', function(error, results) {
-//     if ( ! error ) {
-//         console.log(results[0]['authors'], results[0]['categories'], results[0]['link'], results[0]['thumbnail']);
-//     } else {
-//         console.log(error);
-//     }
-// });
-//movies
-// MovieDB.searchMovie({ query: 'Shrek' }, (err, res) => {
-//   // console.log(`Review: ${res['results'][0]['vote_average']} Overview: ${res['results'][0]['overview']}`);
-// });
-//places to eat
 const yelp = require('yelp-fusion');
 
 const client = yelp.client(getSecrets.yelp_TOKEN);
-
-// client.search({
-//   term: req.params,
-//   location: 'Vancouver'
-// }).then(response => {
-//   //console.log(response.jsonBody.businesses[0].rating, response.jsonBody.businesses[0].price);
-// }).catch(e => {
-//   console.log(e);
-// });
-
-
-
-// Load the logger first so all (static) HTTP requests are logged to STDOUT
-// 'dev' = Concise output colored by response status for development use.
-//         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
-
-// Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
-
 app.use(session({
   name: 'session',
   keys: ['hello'],
-  // Cookie Options
 }));
-
-// flash
 app.use(flash());
-
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.set("view engine", "ejs");
 app.use("/styles", sass({
   src: __dirname + "/styles",
@@ -86,19 +46,8 @@ app.use("/styles", sass({
   outputStyle: 'expanded'
 }));
 app.use(express.static("public"));
-
-// Mount all resource routes
 app.use("/api/todo", mainRoutes(knex));
-
-// Home page
-// app.get("/", (req, res) => {
-//   res.render("index", {key: 'test'});
-// });
-
-
 app.use(mainRoutes(knex));
-
-
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });

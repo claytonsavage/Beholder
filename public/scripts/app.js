@@ -1,7 +1,5 @@
 $(() => {
 
-  //need to add the current user id to the new todo being created
-
    function createTodoElement(value){
       var str = value.category_id;
       var catVar;
