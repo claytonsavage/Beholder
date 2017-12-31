@@ -17,7 +17,6 @@ const knexLogger  = require('knex-logger');
 const session     = require('cookie-session');
 
 // Seperated Routes for each Resource
-const usersRoutes = require("./routes/users");
 const mainRoutes  = require("./routes/routes");
 // const mainRoutes = express.Router();
 //API's
