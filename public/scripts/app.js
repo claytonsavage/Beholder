@@ -45,7 +45,7 @@ $(() => {
     const $h2 = $('<h2>').text(catVar).addClass("category");
     const $header = $('<header>').addClass("todo-header");
     const $apiInfo = $('<h3>').text(apiResult).addClass("api-info");
-    const $content = $('<p>').text(value.todo).addClass("todo-text");
+    const $content = $('<p>').text(value.todo).addClass(`todo-text ${doneClass}`);
     const $categorychanger = $('<div>').addClass("toggle-button");
     const $categoryMovie = $('<div>').text('Movie').addClass("movie-toggle");
     const $categoryBook = $('<div>').text('Book').addClass("book-toggle");
@@ -53,7 +53,7 @@ $(() => {
     const $categoryRestaurant = $('<div>').text('Restaurant').addClass("restaurant-toggle");
     const $deleteIt = $('<div>').text('x').addClass("deleteIt");
     return $('<article>')
-      .addClass(`todo-box ${doneClass}`)
+      .addClass(`todo-box`)
       .attr("todo", value.todo)
       .attr("id", value.id)
       .attr("category", value.category_id)
@@ -90,7 +90,7 @@ $(() => {
       method: 'GET',
       dataType: 'JSON',
       success: function (moreTodos) {
-        renderTodos(moreTodos.reverse());
+        renderTodos(moreTodos);
       }
     });
   };

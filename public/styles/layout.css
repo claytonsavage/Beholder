@@ -69,6 +69,7 @@ main {
   padding-top: 15px;
   overflow-wrap: break-word;
   font-size: 20px;
+  width: 300px;
 }
 
 .todo-box:hover {
@@ -91,7 +92,6 @@ main {
 .redlike {
   color: black;
   text-decoration: line-through;
-  border: 2px solid black;
 }
 
 .redlike .category {

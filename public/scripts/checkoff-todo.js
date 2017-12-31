@@ -10,7 +10,7 @@ $(function() {
       })
   });
 
-  $('body').on('click', 'p', function(event) {
+  $('body').on('click', '.redlike', function(event) {
     let currentId = $(this).closest('article').attr("id");
      $.ajax({
       url: `/todo/${currentId}/update/incomplete`,

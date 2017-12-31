@@ -157,10 +157,9 @@ module.exports = function(knex) {
   });
 
   mainRoutes.route("/todo/create").post((req, res) => {
-    if (req.session.userID === undefined || !req.session) {
+    if (req.session.userID === undefined || !req.session || !req.session.userID) {
       return res.redirect("/");
     } else {
-
       var str = req.body.todo;
       var watchResult = RegExp('watch', 'i').test(str);
       var bookResult = RegExp('read', 'i').test(str);
@@ -178,12 +177,16 @@ module.exports = function(knex) {
         catVar = 4;
       }
 
+    if (req.session.userID) {
       knex('todo_list').insert({'todo': req.body.todo, 'user_id': req.session.userID, 'category_id': catVar, 'completed': false}).then(() => {
         res.redirect("/");
       }).catch((err) => {
         console.log(err);
         res.sendStatus(500);
       });
+    } else {
+      return res.redirect("/");
+    }
     }
   });
 
