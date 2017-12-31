@@ -44,6 +44,7 @@ main {
   width: 800px;
   padding-right: 200px;
   z-index: 0;
+  min-height: 95px;
 }
 
 .category {
@@ -69,7 +70,7 @@ main {
 .todo-text {
   padding: 10px;
   padding-bottom: 0px;
-  padding-top: 0px;
+  padding-top: 15px;
   overflow-wrap: break-word;
   font-size: 20px;
 }
@@ -179,4 +180,13 @@ main {
   background-color: #051119;
   margin-top: -9px;
   padding-top: 15px;
+}
+
+.deleteIt {
+  color: white;
+  position: absolute;
+  right: 4px;
+  top: -2px;
+  font-weight: 700;
+  font-size: 15px;
 }

@@ -61,6 +61,15 @@ module.exports = function(knex) {
     return res.send("it works");
   });
 
+  mainRoutes.route("/todo/:id/delete").post((req, res) => {
+    knex('todo_list').where({ id: req.params.id}).del().then(() => {
+        res.redirect("/");
+      }).catch((err) => {
+        console.log(err);
+        res.sendStatus(500);
+      });
+  });
+
   mainRoutes.route("/todo/new").get((req, res) => {
     return res.send("it works");
   });

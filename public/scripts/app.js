@@ -49,12 +49,13 @@ $(() => {
     const $categoryBook = $('<div>').text('Book').addClass("book-toggle");
     const $categoryPurchase = $('<div>').text('Purchase').addClass("purchase-toggle");
     const $categoryRestaurant = $('<div>').text('Restaurant').addClass("restaurant-toggle");
+    const $deleteIt = $('<div>').text('x').addClass("deleteIt");
     return $('<article>')
       .addClass("todo-box")
       .attr("todo", value.todo)
       .attr("id", value.id)
       .attr("category", value.category_id)
-      .append($header, $content, $apiInfo, $categorychanger, $categoryMovie, $categoryBook, $categoryPurchase, $categoryRestaurant, $h2);
+      .append($header, $content, $apiInfo, $categorychanger, $categoryMovie, $categoryBook, $categoryPurchase, $categoryRestaurant, $h2, $deleteIt);
   }
 
    function renderTodos(todos){
@@ -192,6 +193,19 @@ $(() => {
       }
       })
   });
+
+  $('body').on('click', '.deleteIt', function(event) {
+    console.log($(this).closest('article').attr('id'));
+    let currentId = $(this).closest('article').attr("id");
+     $.ajax({
+      url: `/todo/${currentId}/delete`,
+      method: 'POST',
+      success: function (moreTodos) {
+        loadTodos();
+      }
+      })
+  });
+
 
 
 });
