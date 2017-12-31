@@ -48,7 +48,7 @@ position: absolute;
 font-size: 16px;
 color: white;
 right: 25px;
-top: 12px;
+top: 8px;
 }
 
 .logoutbutton {
@@ -80,6 +80,19 @@ top: 12px;
     box-shadow:10px 10px 20px black;
 }
 
+.regupdate {
+    font-size: 16px;
+    position: absolute;
+    right: 600px;
+    top: 150px;
+    width: 250px;
+    color: white;
+    background-color: rgba(118, 6, 40, 0.9);
+    height: 260px;
+    padding: 20px;
+    box-shadow:10px 10px 20px black;
+}
+
 .hiddenupdate {
     display: hidden;
 }
@@ -92,7 +105,13 @@ top: 12px;
     width: 87px;
 }
 
-
+#registertoggle {
+    font-size: 16px;
+    position: absolute;
+    right: 0px;
+    top: 34px;
+    width: 87px;
+}
 
 
 

@@ -25,5 +25,8 @@ $(function() {
     $('.update').toggleClass("hidden");
     });
 
+   $('body').on('click', '#registertoggle', function(event) {
+      $('.regupdate').toggleClass("hidden");
+      });
 
 });
