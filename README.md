@@ -1,13 +1,8 @@
 # BEHOLDER
 
-Beholder is a smart, auto-categorizing todo list application. Users simply have to add their todo and automatically the todo gets categorized into one of the following categories:
-
-          * Movies (to watch), 
-          * Restaurants (to eat), 
-          * Books (to read) & 
-          * Products (to buy) 
+Beholder is a smart, auto-categorizing todo list application. Users simply have to add their todo and automatically the todo gets categorized into one of the following categories: Movies (to watch), Restaurants (to eat), Books (to read) & Products (to buy). 
           
-Beholder then queries various APIs (Walmart, Yelp & MovieDB) to provide the user with further information! Users are able to cross off todos once complete or completely delete them. If a todo is incorrectly categorised users simply click on the correct category from a list on the right of their todo.
+Beholder then queries various APIs (Walmart, Yelp & MovieDB) to provide the user with further information about their todo! Users are able to cross off todos once complete or simply delete them. If a todo is incorrectly categorised users simply click on the correct category from a list on the right of their todo.
 
 ## Project Setup
 
