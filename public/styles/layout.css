@@ -26,12 +26,8 @@ body {
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
 main {
-  width: 100%;
   position: relative;
-  padding: 280px;
   padding-top: 82px;
-  padding-bottom: 90px;
-  left: 160px;
 }
 
 .todo-box {

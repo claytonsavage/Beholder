@@ -1,10 +1,24 @@
 $(function() {
-  $('body').on('click', 'p', function(event) {
-    $(this).closest('.todo-box').toggleClass("redlike");
+  $('body').on('click', '.notdone', function(event) {
+    let currentId = $(this).closest('article').attr("id");
+     $.ajax({
+      url: `/todo/${currentId}/update/completed`,
+      method: 'POST',
+      success: function (moreTodos) {
+        loadTodos();
+      }
+      })
   });
 
-  // $('body').on('click', 'h2', function(event) {
-  //   $(this).closest('').toggle();
-  // });
+  $('body').on('click', 'p', function(event) {
+    let currentId = $(this).closest('article').attr("id");
+     $.ajax({
+      url: `/todo/${currentId}/update/incomplete`,
+      method: 'POST',
+      success: function (moreTodos) {
+        loadTodos();
+      }
+      })
+  });
 
 });

@@ -61,6 +61,24 @@ module.exports = function(knex) {
     return res.send("it works");
   });
 
+   mainRoutes.route("/todo/:id/update/completed").post((req, res) => {
+    knex('todo_list').where({ id: req.params.id}).update({completed: true}).then(() => {
+        res.redirect("/");
+      }).catch((err) => {
+        console.log(err);
+        res.sendStatus(500);
+      });
+  });
+
+   mainRoutes.route("/todo/:id/update/incomplete").post((req, res) => {
+    knex('todo_list').where({ id: req.params.id}).update({completed: false}).then(() => {
+        res.redirect("/");
+      }).catch((err) => {
+        console.log(err);
+        res.sendStatus(500);
+      });
+  });
+
   mainRoutes.route("/todo/:id/delete").post((req, res) => {
     knex('todo_list').where({ id: req.params.id}).del().then(() => {
         res.redirect("/");
@@ -75,7 +93,7 @@ module.exports = function(knex) {
   });
 
   mainRoutes.route("/todo/index").get((req, res) => {
-    knex.select('todo', 'id', 'category_id').
+    knex.select('todo', 'id', 'category_id', 'completed').
     from('todo_list').
     where('user_id', req.session.userID).
     then(rows => {
@@ -108,7 +126,7 @@ module.exports = function(knex) {
         catVar = 4;
       }
 
-      knex('todo_list').insert({'todo': req.body.todo, 'user_id': req.session.userID, 'category_id': catVar}).then(() => {
+      knex('todo_list').insert({'todo': req.body.todo, 'user_id': req.session.userID, 'category_id': catVar, 'completed': false}).then(() => {
         res.redirect("/");
       }).catch((err) => {
         console.log(err);

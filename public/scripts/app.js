@@ -6,7 +6,11 @@ $(() => {
       var str = value.category_id;
       var catVar;
       var apiResult;
-
+      let completed = value.completed;
+      let doneClass = "notdone"
+      if (value.completed === true) {
+        doneClass = "redlike";
+      }
       if(str === 1) {
         catVar = "Movie";
         var apiquery = value.todo;
@@ -51,10 +55,11 @@ $(() => {
     const $categoryRestaurant = $('<div>').text('Restaurant').addClass("restaurant-toggle");
     const $deleteIt = $('<div>').text('x').addClass("deleteIt");
     return $('<article>')
-      .addClass("todo-box")
+      .addClass(`todo-box ${doneClass}`)
       .attr("todo", value.todo)
       .attr("id", value.id)
       .attr("category", value.category_id)
+      .attr("completed", value.completed)
       .append($header, $content, $apiInfo, $categorychanger, $categoryMovie, $categoryBook, $categoryPurchase, $categoryRestaurant, $h2, $deleteIt);
   }
 
@@ -142,6 +147,8 @@ $(() => {
     apisearch(id, category);
   });
 
+
+
     $('body').on('click', '.movie-toggle', function(event) {
     $(this).closest('.movie-toggle').toggleClass("selected-cat");
     let currentId = $(this).closest('article').attr("id");
@@ -195,7 +202,6 @@ $(() => {
   });
 
   $('body').on('click', '.deleteIt', function(event) {
-    console.log($(this).closest('article').attr('id'));
     let currentId = $(this).closest('article').attr("id");
      $.ajax({
       url: `/todo/${currentId}/delete`,
@@ -205,7 +211,6 @@ $(() => {
       }
       })
   });
-
 
 
 });
