@@ -1,39 +1,334 @@
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
 /*
- * http://www.paulirish.com/2012/box-sizing-border-box-ftw/
- * https://css-tricks.com/international-box-sizing-awareness-day/
- * Do not modify these two selectors, please
+ * Landing page header
  */
+header#landing {
+  color: #f7fff7;
+  text-align: center;
+  margin-bottom: -20px;
+}
+
+header#landing h1 {
+  line-height: 1.35;
+  font-size: 5.5rem;
+  font-weight: bold;
+  font-family: "Alegreya";
+}
+
+header#landing h2 {
+  font-family: "Amatic SC", cursive;
+  font-weight: bold;
+}
+
+/*
+ * Logged in user header
+ */
+#user-header {
+  display: inherit;
+  flex-flow: wrap;
+  position: fixed;
+  z-index: 20;
+  background: #f7fff7;
+  height: 4.5em;
+  color: #1a535c;
+}
+
+#user-header, #user-header section#nav {
+  width: 100%;
+}
+
+#user-header section#nav {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-justify-content: space-between;
+  justify-content: space-between;
+  display: inherit;
+  padding: 0 10%;
+}
+
+#user-header .fa-pen-square, #user-header .logoutbutton {
+  cursor: pointer;
+  transition: .25s ease-in-out;
+}
+
+#user-header .fa-pen-square {
+  font-size: 3.25rem;
+}
+
+#user-header .fa-pen-square:hover {
+  color: #ffe66d;
+}
+
+#user-header h1 {
+  font-size: 3.5rem;
+}
+
+#user-header .logoutbutton {
+  background: #1a535c;
+  border: 2px solid #1a535c;
+  font-size: 1.5rem;
+  color: #f7fff7;
+  border-radius: 4px;
+  line-height: 1.65;
+}
+
+#user-header .logoutbutton:hover {
+  background: #ff6b6b;
+}
+
+.username {
+  background: rgba(78, 205, 196, 0.35);
+  color: #f7fff7;
+  font-size: 1.5rem;
+  width: 100%;
+  left: 0;
+  text-align: center;
+  line-height: 2.1;
+  margin-top: -3px;
+}
+
+.update.hidden {
+  display: none;
+}
+
+#login-signup-forms {
+  background: rgba(26, 83, 92, 0.5);
+  max-width: 600px;
+  width: 100vw;
+  border-radius: 8px;
+  border: solid #f7fff7;
+  box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.5);
+  padding-bottom: 40px;
+}
+
+.tab-group {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 40px 0;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-justify-content: space-between;
+  justify-content: space-between;
+}
+
+.tab-group .tab {
+  width: 50%;
+  text-align: center;
+  background: #f7fff7;
+  transition: .5s ease-in-out;
+}
+
+.tab-group .tab a {
+  color: #1a535c;
+  display: block;
+  text-decoration: none;
+  font-size: 1.5rem;
+  line-height: 2.5;
+  cursor: pointer;
+}
+
+.tab-group .tab:hover {
+  background: rgba(247, 255, 247, 0.35);
+}
+
+.tab-group .tab:hover a {
+  color: #f7fff7;
+}
+
+.tab-group .active {
+  background: rgba(247, 255, 247, 0.35);
+  color: #f7fff7;
+}
+
+.tab-group .active a {
+  color: #f7fff7;
+}
+
+.tab-group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#login-signup-forms .tab-content {
+  padding: 0 40px;
+}
+
+#login-signup-forms .tab-content > div:last-child {
+  display: none;
+}
+
+#login-signup-forms .tab-content .form {
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+#login-signup-forms .tab-content .form * {
+  transition: .25s ease-in-out;
+}
+
+#login-signup-forms .tab-content .form input, #login-signup-forms .tab-content .form button {
+  font-size: 1.3rem;
+  padding: .4em;
+}
+
+#login-signup-forms .tab-content .form input {
+  border-radius: 4px;
+  margin: 5px 0;
+  background: none;
+  color: #f7fff7;
+  border: 2.35px solid #f7fff7;
+}
+
+#login-signup-forms .tab-content .form input:focus {
+  background: #f7fff7;
+  color: #1a535c;
+}
+
+#login-signup-forms .tab-content .form button {
+  margin-top: 2.5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#login-signup-forms .tab-content .form button:hover {
+  background: rgba(247, 255, 247, 0.5);
+  color: #f7fff7;
+}
+
 html {
   box-sizing: border-box;
 }
 
 *, *:before, *:after {
   box-sizing: inherit;
-  font-family: 'Roboto Mono', monospace;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: "Alegreya", serif;
 }
 
 /*
  * Global layout stuff
  */
+html, body {
+  height: 100%;
+}
+
 body {
   margin: 0;
-  color: #244751;
-  background-color: #051119;
-  font-family: 'Roboto Condensed', sans-serif;
+  color: #f7fff7;
+  background-color: #f7fff7;
+  font-family: "Lato", sans-serif;
+}
+
+body, body .wrapper main {
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+body .wrapper {
+  height: inherit;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  background-image: linear-gradient(rgba(26, 83, 92, 0.45), rgba(26, 83, 92, 0.45)), url("../images/bg1.jpeg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+body .wrapper, body .wrapper main {
+  display: inherit;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+}
+
+body .wrapper main {
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: space-evenly;
+  -ms-flex-pack: space-evenly;
+  -webkit-justify-content: space-evenly;
+  -moz-justify-content: space-evenly;
+  justify-content: space-evenly;
+  height: 100vh;
+  max-height: 800px;
+}
+
+/*
+ * Logged in styles
+ */
+.wrapper#logged-in {
+  position: relative;
+  z-index: 1;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.wrapper#logged-in:before {
+  content: '';
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: -100;
+  background-image: linear-gradient(rgba(26, 83, 92, 0.65), rgba(26, 83, 92, 0.65)), url("../images/bg1.jpeg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+}
+
+.wrapper#logged-in main {
+  max-height: initial;
+  height: auto;
 }
 
 /*
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
-main {
-  position: relative;
-  padding-top: 82px;
-}
-
 .todo-box {
   border: 2px solid darkgrey;
   margin: 6px;
-  padding: 6px;
+  padding: 4px;
   position: relative;
   color: white;
   opacity: 0.8;
@@ -170,13 +465,6 @@ main {
   width: 500px;
   position: absolute;
   left: 280px;
-}
-
-.todo-container-class {
-  background-color: #051119;
-  margin-top: -9px;
-  padding-top: 15px;
-  padding-bottom: 100vh;
 }
 
 .deleteIt {

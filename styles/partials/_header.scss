@@ -1,0 +1,113 @@
+// header{
+//   background: $blue;
+//   width: 100%;
+//   height: 4.5em;
+//   color: $white;
+//   @include justify-content(center);
+
+//   &, #main-nav{
+//     display:inherit;
+//   }
+//   #main-nav{
+//     @include justify-content(space-between);
+//     width: 85%;
+//     h1{
+//       font-size:3.5rem
+//     }
+//   }
+// }
+
+/*
+ * Landing page header
+ */
+header#landing{
+  color:$white;
+  text-align:center;
+  margin-bottom: -20px;
+  h1{
+    line-height: 1.35;
+    font-size:5.5rem;
+    font-weight:bold;
+    font-family: $heading;
+  }
+  h2{
+    font-family: $amatic;
+    font-weight:bold;
+
+  }
+}
+
+/*
+ * Logged in user header
+ */
+
+#user-header{
+  display: inherit;
+  flex-flow: wrap;
+  position: fixed;
+  z-index:20;
+  background: $white;
+  height: 4.5em;
+  color: $blue;
+  &, section#nav{
+    width: 100%;
+  }
+  section#nav{
+    @include align-items(center);
+    @include justify-content(space-between);
+    display: inherit;
+    padding:0 10%;
+  }
+  .fa-pen-square, .logoutbutton{
+    cursor:pointer;
+    transition:.25s ease-in-out;
+  }
+  .fa-pen-square {
+    font-size: 3.25rem;
+    &:hover{
+      color:$yellow;
+    }
+  }
+  h1{
+    font-size:3.5rem;
+  }
+  .logoutbutton {
+      background: $blue;
+      border: 2px solid $blue;
+      font-size: 1.5rem; color: $white;
+      border-radius: $br - 4px;
+      line-height: 1.65;
+
+      &:hover{
+        background: $red;
+      }
+  }
+}
+
+.username {
+    background: rgba($tealB, .35);
+    color: $white;
+    font-size: 1.5rem;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    line-height: 2.1;
+    margin-top: -3px;
+}
+
+// .regupdate {
+//     font-size: 16px;
+//     position: absolute;
+//     right: 600px;
+//     top: 150px;
+//     width: 250px;
+//     color: white;
+//     background-color: rgba(118, 6, 40, 0.9);
+//     height: 260px;
+//     padding: 20px;
+//     box-shadow:10px 10px 20px black;
+// }
+
+.update.hidden {
+    display: none;
+}

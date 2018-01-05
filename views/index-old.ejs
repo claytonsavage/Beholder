@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Beholder</title>
+
+    <!-- external style sheets -->
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Alegreya|Lato" rel="stylesheet">
+
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+
+    <!-- internal style sheets -->
+    <link rel="stylesheet" href="/styles/layout.css">
+    <!-- <link rel="stylesheet" href="/styles/nav.css"> -->
+    <link rel="stylesheet" href="/styles/new-todo.css">
+
+    <!-- scripts -->
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+    <script type="text/javascript" src="/scripts/checkoff-todo.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.2/js/all.js"></script>
+  </head>
+
+  <body class="flex">
+    <header>
+<!--       <div class="navbar container">
+        <span class="logo">Logo</span>
+        <div id="nav-icon1">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="overlay" id="overlay">
+          <div class="overlay-content">
+
+          </div>
+        </div>
+      </div> -->
+      <nav id="main-nav">
+        <h1>Kaaljot</h1>
+        <div class="toggleButton">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          <p class="navP">+</p>
+        </div>
+
+        <% if (userID) { %>
+
+        <div class="username">
+          What do you want to do today <%= username %>?
+        </div>
+
+          <div class="logout">
+              <form action="/logout" method="post">
+                <button class="logoutbutton" type="submit">Log out</button>
+              </form>
+
+              <button id="updatetoggle"> Update </button>
+              <div class="update hidden">
+              <form action="/user/update" method="post" id="updateform">
+                <label for="update-username">Username</label>
+                <input id="update-username" name="username">
+                  <label for="update-password">Password</label>
+                <input id="update-password" name="password" type="password">
+                <button> Submit </button>
+                <div class="update-error-message"></div>
+              </form>
+              </div>
+          </div>
+
+          <% } else { %>
+
+        <div class="login">
+          <form action="/login" method="post">
+            <p>
+            <label for="email">Email</label>
+            <input id="email" name="email">
+              <label for="password">Password</label>
+            <input id="password" name="password" type="password">
+            <button>Log in</button>
+            </p>
+          </form>
+          <button id="registertoggle"> Register </button>
+          <div class="regupdate hidden">
+            <form action="/register" method="post" id="registerform">
+              <label for="register-username">Username</label>
+              <input id="register-username" name="username">
+              <label for="register-email">Email</label>
+              <input id="register-email" name="email">
+                <label for="register-password">Password</label>
+              <input id="register-password" name="password" type="password">
+              <button> Submit </button>
+              <div class="reg-error-message"></div>
+            </form>
+          </div>
+
+           <% } %>
+
+        </div>
+      </nav>
+    </header>
+    <div id="wrapper">
+      <main class="container center-me">
+        <div class="wrapper">
+          <section class="new-todo">
+            <!-- <h1>Hello World!</h1> -->
+            <div class="infoForUser"></div>
+            <form action="/todo/create" method="post" id="todoform">
+              <textarea name="todo" placeholder="ToDo" class="textarea-new-todo"></textarea>
+              <input type="submit" value="Add" class="submit-todo" id="to_Do">
+            </form>
+          </section>
+        </div>
+        <section class="todo-container-class" id="todo-container">
+          <!-- content goes here -->
+          <div id="todos">  </div>
+        </section>
+      </main>
+      <div class="information-from-api"></div>
+
+    </div>
+  </body>
+</html>

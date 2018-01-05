@@ -1,40 +1,108 @@
-/*
- * http://www.paulirish.com/2012/box-sizing-border-box-ftw/
- * https://css-tricks.com/international-box-sizing-awareness-day/
- * Do not modify these two selectors, please
- */
+@import "partials/base";
+@import "partials/flex";
+
+@import "partials/header";
+@import "partials/forms";
+
 html {
   box-sizing: border-box;
 }
 *, *:before, *:after {
   box-sizing: inherit;
-  font-family: 'Roboto Mono', monospace;
+  // font-family: 'Roboto Mono', monospace;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
+  font-family: $heading-font-family;
 }
 
 /*
  * Global layout stuff
  */
+html, body {
+    height: 100%;
+}
 
 body {
   margin: 0;
-  color: #244751;
-  background-color: #051119;
-  font-family: 'Roboto Condensed', sans-serif;
+  color: $white;
+  background-color: $white;
+  font-family: $body-font-family;
+
+  &, .wrapper main{@include flex-direction(column);}
+
+  .wrapper{
+    height: inherit;
+    @include justify-content(center);
+    background-image: linear-gradient(
+        rgba($blue, 0.45),
+        rgba($blue, 0.45)
+      ),url('../images/bg1.jpeg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    &, main{
+      display: inherit;
+      @include align-items(center);
+    }
+
+    main{
+      @include flex-direction(column);
+      @include justify-content(space-evenly);
+      height: 100vh;
+      max-height:800px;
+    }
+  }
 }
+
+/*
+ * Logged in styles
+ */
+
+.wrapper#logged-in{
+  position: relative;
+  z-index:1;
+  @include flex-direction(column);
+  &:before{
+    content: '';
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index:-100;
+    background-image: linear-gradient(
+        rgba($blue, 0.65),
+        rgba($blue, 0.65)
+      ),url('../images/bg1.jpeg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+  }
+
+  main{
+    max-height: initial;
+    height: auto;
+  }
+}
+
 
 /*
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
- main {
-   position: relative;
-   padding-top: 82px;
-
- }
+//  main {
+//    position: relative;
+//    padding-top: 82px;
+//  }
 
  .todo-box {
   border: 2px solid darkgrey;
   margin: 6px;
-  padding: 6px;
+  padding: 4px;
   position: relative;
   color: white;
   opacity: 0.8;
@@ -165,13 +233,6 @@ color: black;
   width: 500px;
   position: absolute;
   left: 280px;
-}
-
-.todo-container-class {
-  background-color: #051119;
-  margin-top: -9px;
-  padding-top: 15px;
-  padding-bottom: 100vh;
 }
 
 .deleteIt {
