@@ -209,6 +209,62 @@ header#landing h2 {
   color: #f7fff7;
 }
 
+.new-todo {
+  margin: 6px;
+  padding: 6px;
+  position: fixed;
+  left: 20%;
+  right: 10%;
+  bottom: 4px;
+  z-index: 9000;
+}
+
+.new-todo-header {
+  border-bottom: 2px black solid;
+  margin-top: 4px;
+}
+
+.textarea-new-todo {
+  width: 95%;
+  padding: 8px;
+  resize: none;
+  overflow: hidden;
+  bottom: 0px;
+  top: 0px;
+  border: dashed 5px lightgrey;
+  background-color: #051119;
+  color: white;
+  font-size: 20px;
+}
+
+textarea:focus, input:focus {
+  outline: none;
+  background-color: #051111;
+  color: white;
+}
+
+.submit-todo {
+  position: absolute;
+  width: 60px;
+  top: 5px;
+  bottom: 10px;
+  font-size: 20px;
+  border: 0px;
+  background-color: #051119;
+  color: pink;
+}
+
+.submit-todo:hover {
+  position: absolute;
+  width: 60px;
+  top: 5px;
+  bottom: 10px;
+  font-size: 20px;
+  border: 0px;
+  background-color: #051119;
+  color: white;
+}
+
 html {
   box-sizing: border-box;
 }
@@ -316,28 +372,34 @@ body .wrapper main {
 .wrapper#logged-in main {
   max-height: initial;
   height: auto;
+  width: 60vmax;
+  margin-left: 7vmax;
 }
 
 /*
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
+#todo-container {
+  width: 85%;
+}
+
 .todo-box {
   border: 2px solid darkgrey;
   margin: 6px;
   padding: 4px;
   position: relative;
-  color: white;
+  color: #f7fff7;
   opacity: 0.8;
-  width: 800px;
   padding-right: 200px;
   z-index: 0;
   min-height: 95px;
+  width: 100%;
 }
 
 .category {
   position: absolute;
   overflow-wrap: break-word;
-  background-color: pink;
+  background-color: #4ecdc4;
   right: 0px;
   top: 0px;
   bottom: 0px;
@@ -369,10 +431,10 @@ body .wrapper main {
 }
 
 .error {
-  color: pink;
+  color: #f7fff7;
   font-weight: 700;
   position: relative;
-  background-color: #051119;
+  background: rgba(255, 107, 107, 0.5);
   bottom: 15px;
   left: 35px;
   width: 90%;
@@ -391,7 +453,7 @@ body .wrapper main {
 
 .api-info {
   margin-left: 20px;
-  font-size: 12px;
+  font-size: 15px;
   margin-top: -15px;
 }
 
@@ -399,13 +461,21 @@ body .wrapper main {
   position: fixed;
   font-size: 1vw;
   color: white;
-  top: 60px;
+  top: 73px;
+  left: 0px;
   width: 330px;
-  background-color: black;
+  background-color: #051119;
   padding: 30px;
   overflow: scroll;
   height: 100%;
-  z-index: -2;
+  z-index: 50;
+}
+
+.information-about:-webkit-scrollbar {
+  width: 0px;
+  /* remove scrollbar space */
+  background: transparent;
+  /* optional: just make scrollbar invisible */
 }
 
 .movie-toggle {
@@ -469,7 +539,8 @@ body .wrapper main {
   right: 4px;
   top: -2px;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 .hidden {

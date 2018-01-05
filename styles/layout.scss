@@ -3,6 +3,7 @@
 
 @import "partials/header";
 @import "partials/forms";
+@import "partials/new-todo";
 
 html {
   box-sizing: border-box;
@@ -87,6 +88,8 @@ body {
   main{
     max-height: initial;
     height: auto;
+    width: 60vmax;
+    margin-left: 7vmax;
   }
 }
 
@@ -99,23 +102,27 @@ body {
 //    padding-top: 82px;
 //  }
 
+#todo-container {
+    width: 85%;
+}
+
  .todo-box {
   border: 2px solid darkgrey;
   margin: 6px;
   padding: 4px;
   position: relative;
-  color: white;
+  color: $white;
   opacity: 0.8;
-  width: 800px;
   padding-right: 200px;
   z-index: 0;
   min-height: 95px;
+  width:100%;
  }
 
 .category {
   position: absolute;
   overflow-wrap: break-word;
-  background-color: pink;
+  background-color: $tealB;
   right: 0px;
   top: 0px;
   bottom: 0px;
@@ -146,11 +153,12 @@ body {
   opacity: 1;
  }
 
+
 .error {
-  color: pink;
+  color: $white;
   font-weight: 700;
   position: relative;
-  background-color: #051119;
+  background: rgba($red, .5);
   bottom: 15px;
   left: 35px;
   width: 90%;
@@ -169,7 +177,7 @@ body {
 
 .api-info {
   margin-left: 20px;
-  font-size: 12px;
+  font-size: 15px;
   margin-top: -15px;
 }
 
@@ -177,13 +185,18 @@ body {
   position: fixed;
   font-size: 1vw;
   color: white;
-  top: 60px;
+  top: 73px;
+  left:0px;
   width: 330px;
-  background-color: black;
+  background-color: #051119;
   padding: 30px;
   overflow: scroll;
   height: 100%;
-  z-index: -2;
+  z-index: 50;
+}
+.information-about:-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
 }
 
 .movie-toggle {
@@ -241,7 +254,8 @@ color: black;
   right: 4px;
   top:-2px;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 .hidden {

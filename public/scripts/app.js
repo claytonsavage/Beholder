@@ -101,7 +101,7 @@ $(() => {
   loadTodos();
 
   $( ".toggleButton" ).click(function() {
-    $( ".wrapper" ).slideToggle( 80, function() {
+    $( ".new-todo" ).slideToggle( 80, function() {
       $( ".textarea-new-todo" ).focus();
     });
   });
@@ -142,7 +142,7 @@ $(() => {
     }
   };
 
-  $('.container').on('click', 'article', function() {
+  $('.to-dos').on('click', 'article', function() {
     let category = $(this).attr('category');
     let id = $(this).attr('id');
     apisearch(id, category);
