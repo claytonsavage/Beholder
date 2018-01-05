@@ -127,12 +127,13 @@ header#landing h2 {
 .tab-group .tab {
   width: 50%;
   text-align: center;
-  background: #f7fff7;
+  background: rgba(247, 255, 247, 0.35);
+  color: #f7fff7;
   transition: .5s ease-in-out;
 }
 
 .tab-group .tab a {
-  color: #1a535c;
+  color: #f7fff7;
   display: block;
   text-decoration: none;
   font-size: 1.5rem;
@@ -141,20 +142,15 @@ header#landing h2 {
 }
 
 .tab-group .tab:hover {
-  background: rgba(247, 255, 247, 0.35);
-}
-
-.tab-group .tab:hover a {
-  color: #f7fff7;
+  background: rgba(247, 255, 247, 0.65);
 }
 
 .tab-group .active {
-  background: rgba(247, 255, 247, 0.35);
-  color: #f7fff7;
+  background: #f7fff7;
 }
 
 .tab-group .active a {
-  color: #f7fff7;
+  color: #1a535c;
 }
 
 .tab-group:after {
