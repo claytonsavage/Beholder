@@ -36,8 +36,8 @@ Beholder then queries various APIs (Walmart, Yelp & MovieDB) to provide the user
 ![Alt text](https://github.com/claytonsavage/Beholder/blob/master/Beholder%20Screenshots/API%20Movie%20query.png "Movie API query")
 
 ## Fresher Look (not done) Screenshots -- new name?
-![Alt text](https://github.com/claytonsavage/Beholder/blob/master/Beholder%20Screenshots/design.png "planJot log in homepage")
-![Alt text](https://github.com/claytonsavage/Beholder/blob/master/Beholder%20Screenshots/design2.png "planJot logged in")
+![Alt text](https://github.com/claytonsavage/Beholder/blob/feature/styling/Beholder%20Screenshots/design.jpg "planJot log in homepage")
+![Alt text](https://github.com/claytonsavage/Beholder/blob/feature/styling/Beholder%20Screenshots/design2.png "planJot logged in")
 
 ## Dependencies
 
